@@ -1,6 +1,6 @@
-# Postify
+Micropost
 
-Postify is a feature-rich social media platform with a focus on user engagement, privacy, and a dynamic user interface.
+Micropost is a feature-rich social media platform with a focus on user engagement, privacy, and a dynamic user interface.
 
 ## Features
 
@@ -64,5 +64,5 @@ Postify is a feature-rich social media platform with a focus on user engagement,
 
 1. **Clone the Repository:**
    ```bash
-   git clone https://github.com/princethakur1999/Postify.git
+   git clone https://github.com/princethakur1999/Micropost.git
    ```

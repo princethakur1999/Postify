@@ -1,5 +1,5 @@
 {
-  "name": "postify",
+  "name": "micropost",
   "private": true,
   "version": "0.0.0",
   "type": "module",
