@@ -6,7 +6,8 @@ import Start from './components/Start';
 import Header from './components/Header';
 import Search from './pages/Search';
 import Profile from './pages/Profile';
-import Signup from './components/Signup';
+import Signup from './pages/Signup';
+import Login from './pages/Login';
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
@@ -60,6 +61,8 @@ export default function App() {
             <Route path="/profile" element={<Profile />} />
 
             <Route path="/signup" element={<Signup />} />
+
+            <Route path="/login" element={<Login />} />
 
           </Routes>
 

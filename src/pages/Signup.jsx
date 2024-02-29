@@ -3,6 +3,8 @@ import { useState } from "react";
 import { FaEyeSlash } from "react-icons/fa";
 import { FaEye } from "react-icons/fa";
 
+import Button from "../components/Button";
+
 
 export default function Signup() {
 
@@ -119,16 +121,9 @@ export default function Signup() {
 
                 </div>
 
-
-                <button className="bg-blue-800 w-[100%] focus-within:outline-none text-lg text-white font-bold text-center rounded-full mt-6 py-1">
-                    Submit
-                </button>
-
+                <Button text="Submit" />
 
             </form>
-
-
-
 
         </div>
     )
