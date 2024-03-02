@@ -1,5 +1,5 @@
 {
-  "name": "postify",
+  "name": "micropost",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -18,6 +18,7 @@
     "react-dom": "^18.2.0",
     "react-hot-toast": "^2.4.1",
     "react-icons": "^5.0.1",
+    "react-otp-input": "^3.1.1",
     "react-redux": "^9.1.0",
     "react-router-dom": "^6.22.1"
   },

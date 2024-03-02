@@ -16,6 +16,7 @@ export default function Signup() {
     const [signupDetails, setSignupDetails] = useState({ firstname: "", lastname: "", email: "", password: "", confirmPassword: "" });
 
 
+
     function changeHandler(e) {
 
         e.preventDefault();
@@ -32,6 +33,7 @@ export default function Signup() {
 
         console.log(signupDetails);
     }
+
 
 
     return (
