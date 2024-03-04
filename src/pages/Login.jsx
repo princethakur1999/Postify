@@ -8,6 +8,9 @@ import { FaEye } from "react-icons/fa";
 
 import axios from "axios";
 
+import toast from 'react-hot-toast';
+
+
 
 export default function Login() {
 
@@ -38,22 +41,22 @@ export default function Login() {
 
             if (!response.data.success) {
 
+                console.log("ARE: ", response.data.message);
+
                 throw new Error("Invalid Credentials");
             }
 
             localStorage.setItem("token", response.data.token);
 
+            toast.success(response.data.message);
+
             navigate('/profile');
-
-            window.location.reload();
-
-            alert("Logged In Successfully!");
-
 
         } catch (e) {
 
-            console.log(e.message);
+            toast.error(e.response.data.message);
 
+            console.log(e.response.data.message);
         }
     }
 

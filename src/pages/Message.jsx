@@ -3,6 +3,8 @@ export default function Message() {
 
     return (
 
-        <div>Message</div>
+        <div>
+
+        </div>
     )
 }

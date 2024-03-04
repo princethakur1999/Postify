@@ -9,18 +9,17 @@ import { LuActivity } from "react-icons/lu";
 import { FaPowerOff } from "react-icons/fa";
 import { IoSettingsSharp } from "react-icons/io5";
 
-import { useSelector } from 'react-redux';
-
 import { setToken } from "../slices/userSlice";
 
 import { useNavigate } from "react-router-dom";
 
+import toast from "react-hot-toast";
 
 export default function Menu() {
 
     const navigate = useNavigate();
 
-    const token = useSelector((state) => state.user.token);
+    const token = localStorage.getItem("token");
 
     function logoutHandler(e) {
 
@@ -30,9 +29,9 @@ export default function Menu() {
 
         setToken(null);
 
-        window.location.reload();
-
         navigate('/login');
+
+        toast.success("Logged out successfully.");
     }
 
     return (
@@ -67,7 +66,7 @@ export default function Menu() {
                         <LuActivity />
                     </Link>
 
-                    <p className="text-white text-2xl" onClick={logoutHandler}>
+                    <p className="text-white text-2xl cursor-pointer" onClick={logoutHandler}>
                         <FaPowerOff />
                     </p>
 

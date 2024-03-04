@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import { useSelector } from 'react-redux';
 
 import Start from './components/Start';
 import Header from './components/Header';
@@ -21,11 +20,10 @@ import Protected from './components/Protected';
 
 export default function App() {
 
-  const token = useSelector((state) => state.user.token);
-
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+
 
     const isVisited = sessionStorage.getItem('visited');
 
@@ -63,19 +61,19 @@ export default function App() {
             <Header />
 
             <Routes>
-              <Route path="/" element={< Protected token={token}><Home /></Protected>} />
+              <Route path="/" element={< Protected ><Home /></Protected>} />
 
-              <Route path="/search" element={<Protected token={token}><Search /></Protected>} />
+              <Route path="/search" element={<Protected ><Search /></Protected>} />
 
-              <Route path="/profile" element={<Protected token={token}><Profile /></Protected>} />
+              <Route path="/profile" element={<Protected ><Profile /></Protected>} />
 
-              <Route path="/message" element={<Protected token={token}><Message /></Protected>} />
+              <Route path="/message" element={<Protected ><Message /></Protected>} />
 
-              <Route path="/notifications" element={<Protected token={token}><Notifications /></Protected>} />
+              <Route path="/notifications" element={<Protected ><Notifications /></Protected>} />
 
-              <Route path="/activity" element={<Protected token={token}><Activity /></Protected>} />
+              <Route path="/activity" element={<Protected ><Activity /></Protected>} />
 
-              <Route path="/setting" element={<Protected token={token}><Setting /></Protected>} />
+              <Route path="/setting" element={<Protected ><Setting /></Protected>} />
 
               <Route path="/signup" element={<Signup />} />
 
