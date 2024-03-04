@@ -15,24 +15,24 @@ const userSchema = new mongoose.Schema(
         email: {
             type: String,
             trim: true,
-            lowercase: true,
             required: true,
+            lowercase: true,
             unique: true,
-        },
-        userid: {
-            type: String,
-            trim: true,
-            unique: true,
-            lowercase: true
         },
         password: {
             type: String,
             trim: true,
             required: true
         },
+        userid: {
+            type: String,
+            trim: true,
+            unique: true,
+        },
         token: {
             type: String,
-            trim: true
+            trim: true,
+            unique: true
         },
         isVerifiedUser: {
             type: Boolean,
@@ -54,7 +54,11 @@ const userSchema = new mongoose.Schema(
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Post'
         },
-        friends: [{
+        followers: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User',
+        }],
+        following: [{
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User',
         }],
@@ -66,7 +70,7 @@ const userSchema = new mongoose.Schema(
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User'
         }],
-        viewers: [{
+        profileViewers: [{
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User'
         }],

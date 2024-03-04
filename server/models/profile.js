@@ -7,10 +7,15 @@ const profileSchema = new mongoose.Schema(
             ref: "User",
             required: true
         },
-        photo: {
+        profilePhoto: {
             type: String,
             trim: true,
-            default: "default-profile.jpg"
+            default: "https://img.freepik.com/free-icon/user_318-749758.jpg"
+        },
+        coverPhoto: {
+            type: String,
+            trim: true,
+            default: "https://www.systemcenterdudes.com/wp-content/themes/scd/assets/images/post-default.jpg"
         },
         phoneNumber: {
             type: Number,

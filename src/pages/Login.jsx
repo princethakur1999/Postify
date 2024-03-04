@@ -1,18 +1,21 @@
 import { useState } from "react";
 
+import { useNavigate } from "react-router-dom";
+
 import { FaEyeSlash } from "react-icons/fa";
 import { FaEye } from "react-icons/fa";
 
 
-import Button from "../components/Button";
-
+import axios from "axios";
 
 
 export default function Login() {
 
+    const navigate = useNavigate();
+
     const [showPassword, setShowPassword] = useState(false);
 
-    const [loginDetails, setLoginDetails] = useState({ email: "", password: "" });
+    const [loginDetails, setLoginDetails] = useState({ userid: "", password: "" });
 
 
     function changeHandler(e) {
@@ -27,9 +30,32 @@ export default function Login() {
 
     async function submitHandler(e) {
 
-        e.preventDefault();
-    }
+        try {
 
+            e.preventDefault();
+
+            const response = await axios.post('http://localhost:4000/login', loginDetails);
+
+            if (!response.data.success) {
+
+                throw new Error("Invalid Credentials");
+            }
+
+            localStorage.setItem("token", response.data.token);
+
+            navigate('/profile');
+
+            window.location.reload();
+
+            alert("Logged In Successfully!");
+
+
+        } catch (e) {
+
+            console.log(e.message);
+
+        }
+    }
 
 
     return (
@@ -48,9 +74,9 @@ export default function Login() {
                 <input
                     className="w-[100%] bg-slate-100 text-slate-600 focus-within:outline-none border border-slate-200 text-sm rounded-lg px-4 py-2"
                     type="text"
-                    name="email"
-                    placeholder="Email"
-                    value={loginDetails.email}
+                    name="userid"
+                    placeholder="Userid"
+                    value={loginDetails.userid}
                     onChange={changeHandler}
                     required
                 />
@@ -77,7 +103,10 @@ export default function Login() {
 
                 </div>
 
-                <Button text="Login" />
+
+                <button className="bg-blue-800 w-[100%] cursor-pointer focus-within:outline-none text-lg text-white font-bold text-center rounded-full mt-6 py-1">
+                    Login
+                </button>
 
             </form>
         </div>
