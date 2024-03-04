@@ -33,13 +33,13 @@ export default function Search() {
             <form className="w-[100%] flex justify-center items-center pt-8 mb-8">
 
                 <input
-                    className="w-[80%] sm:w-[20%] bg-slate-200 px-6 py-1 rounded-full border border-slate-200 focus-within:outline-none text-slate-600"
+                    className="w-[80%] sm:w-[20%] bg-slate-100 px-6 py-1 rounded-full border border-slate-200 focus-within:outline-none text-slate-600"
                     type="text"
-                    placeholder="Search"
+                    placeholder="userid"
                 />
             </form>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 justify-center gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-3 justify-center gap-8">
                 {
                     users.map((user) => <User user={user} id={user.id} />)
                 }

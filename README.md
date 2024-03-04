@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 Micropost
+=======
+# Micropost
+>>>>>>> test
 
 Micropost is a feature-rich social media platform with a focus on user engagement, privacy, and a dynamic user interface.
 

@@ -55,11 +55,11 @@ export default function Header() {
 
     return (
 
-        <nav className="h-[64px] w-[100%] bg-white dark:bg-slate-900 flex justify-between items-center px-4 shadow-2xl z-50 fixed top-0 right-0 left-0">
+        <nav className="h-[64px] w-[100%] bg-white dark:bg-slate-900 flex justify-between items-center px-4 z-40 fixed top-0 right-0 left-0">
 
 
-            <div className="h-[65%] w-[35%] sm:w-[12%] flex justify-center items-center bg-blue-800 text-white">
-                <Link to="/" className="text-xl sm:text-2xl font-bold text-center">Micropost</Link>
+            <div className="h-[60%] w-[30%] sm:w-[10%] flex justify-center items-center bg-blue-800 text-white">
+                <Link to="/" className="text-xl sm:text-2xl text-center">Postify</Link>
             </div>
 
 
