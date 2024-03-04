@@ -66,25 +66,24 @@ export default function Post() {
 
             <div className="w-[100%] flex justify-between py-2">
 
-                <p className="dark:text-white text-blue-800 text-3xl cursor-pointer">
+                <p className="dark:text-white text-slate-900 text-3xl cursor-pointer">
                     <BiSolidLike />
                 </p>
 
-                <p className="dark:text-white text-blue-800 text-2xl cursor-pointer" onClick={() => setIsCommentBoxOpen(!isCommentBoxOpen)}>
+                <p className="dark:text-white text-slate-900 text-2xl cursor-pointer" onClick={() => setIsCommentBoxOpen(!isCommentBoxOpen)}>
                     <FaCommentAlt />
                 </p>
             </div>
 
             {
                 isCommentBoxOpen &&
-                <div className="h-[100vh] w-[100vw] flex flex-col justify-center items-center bg-white dark:bg-slate-900 fixed top-0 bottom-0 left-0 right-0 z-42">
+                <div className="h-[100vh] w-[100vw] flex flex-col justify-start items-center mt-16 bg-white dark:bg-slate-900 fixed top-0 bottom-0 left-0 right-0 z-42">
 
-
-                    <div className="w-[50%] h-[420px] flex flex-col justify-between p-2 border rounded-md overflow-y-auto">
+                    <div className="w-[98%] sm:w-[50%] h-[78vh] flex flex-col justify-between p-2 sm:border rounded-md overflow-y-auto">
 
                         <div className="w-[100%] h-[80%]  flex flex-col justify-between items-center">
 
-                            <div className="w-[100%] h-[18%] flex justify-between items-center py-2 border-b">
+                            <div className="w-[100%] h-auto flex justify-between items-center py-2 border-b">
 
                                 <div className="w-max flex justify-between items-center gap-4">
 
@@ -144,7 +143,7 @@ export default function Post() {
 
                     </div>
 
-                    <form className="bg-white w-[50%] rounded-md fixed bottom-4 flex justify-between px-2 border">
+                    <form className="bg-white w-[98%] sm:w-[50%] rounded-md fixed bottom-4 flex justify-between px-2 border">
 
                         <input
                             className="w-[100%] p-2 focus-within:outline-none text-slate-600"

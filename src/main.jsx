@@ -8,4 +8,7 @@ import './main.css';
 import { store } from './store';
 import { Provider } from 'react-redux';
 
-ReactDOM.createRoot(document.getElementById('root')).render(<Provider store={store}><App /></Provider>);
+import { Toaster } from 'react-hot-toast';
+
+
+ReactDOM.createRoot(document.getElementById('root')).render(<Provider store={store}><App /><Toaster position="bottom-left" reverseOrder={false} /></Provider>);

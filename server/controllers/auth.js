@@ -18,7 +18,7 @@ export async function otpHandler(req, res) {
 
             return res.status(400).json({
                 success: false,
-                message: "Email is required"
+                message: "Email is required!"
             });
         }
 
@@ -36,13 +36,13 @@ export async function otpHandler(req, res) {
 
         return res.status(200).json({
             success: true,
-            message: `An OTP has been sent to ${email}.`
+            message: "OTP has been sent."
         });
 
 
     } catch (e) {
 
-        console.log("Error in sending OTP : ", e);
+        console.log("Error in sending OTP: ", e);
 
         return res.status(500).json({
 
@@ -68,7 +68,7 @@ export async function signupHandler(req, res) {
             return res.status(400).json({
 
                 success: false,
-                message: 'Please provide all the details.',
+                message: 'Fill all the details!',
             });
         }
 
@@ -79,7 +79,7 @@ export async function signupHandler(req, res) {
             return res.status(400).json({
 
                 success: false,
-                message: 'User already exists.',
+                message: 'User already exists!',
             });
         }
 
@@ -88,7 +88,7 @@ export async function signupHandler(req, res) {
             return res.status(400).json({
 
                 success: false,
-                message: 'Passwords do not match.',
+                message: 'Passwords do not match!',
             });
         }
 
@@ -123,12 +123,12 @@ export async function signupHandler(req, res) {
 
     } catch (error) {
 
-        console.error('Error in signup', error);
+        console.error('Error in signup:', error);
 
         return res.status(500).json({
 
             success: false,
-            message: 'Server error',
+            message: 'Server error!',
         });
     }
 }
@@ -146,9 +146,10 @@ export async function loginHandler(req, res) {
             return res.status(400).json({
 
                 success: false,
-                message: "Fields can't be empty"
+                message: "Fields can't be empty!"
             });
         }
+
         // Checking the user is already registered or not
         let existingUser = await User.findOne({ userid });
 
@@ -157,19 +158,19 @@ export async function loginHandler(req, res) {
             return res.status(400).json({
 
                 success: false,
-                message: "Invalid credentials!"
+                message: "Invalid userid!"
             });
         }
 
         // Validate the user id and password using bcrypt compareSync method
-        const validPassword = bcrypt.compare(password, existingUser.password);
+        const validPassword = await bcrypt.compare(password, existingUser.password);
 
         if (!validPassword) {
 
             return res.status(401).json({
 
                 success: false,
-                message: "Invalid Password"
+                message: "Invalid password!"
             });
         }
 
@@ -177,7 +178,7 @@ export async function loginHandler(req, res) {
         return res.status(200).json({
 
             success: true,
-            message: 'User logged in successfully',
+            message: 'Logged in successfully!',
             token: existingUser.token
         });
 

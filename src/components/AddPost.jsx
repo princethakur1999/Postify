@@ -5,7 +5,7 @@ export default function AddPost() {
 
     return (
 
-        <div className="w-full p-4 border rounded-md">
+        <div className="w-full p-1 sm:p-4 border rounded-md bg-blue-800 dark:bg-white">
 
             <form className="rounded-lg flex justify-between items-center space-x-4">
 
@@ -19,7 +19,7 @@ export default function AddPost() {
                         onChange={(e) => console.log(e.target.files[0])}
                     />
 
-                    <div className="bg-gray-100 p-4 rounded-md cursor-pointer hover:bg-gray-200 flex justify-between items-center gap-4">
+                    <div className="bg-gray-100 p-2 rounded-md cursor-pointer hover:bg-gray-200 flex justify-between items-center gap-4">
 
                         <FaImage className="text-4xl text-blue-800" />
 
@@ -27,7 +27,7 @@ export default function AddPost() {
                 </label>
 
 
-                <button className="text-2xl text-blue-800">
+                <button className="text-2xl dark:text-blue-800 text-white">
                     <IoSend />
                 </button>
             </form>

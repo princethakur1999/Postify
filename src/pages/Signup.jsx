@@ -9,8 +9,7 @@ import { FaEye } from "react-icons/fa";
 
 import OtpInput from 'react-otp-input';
 
-
-
+import toast from "react-hot-toast";
 
 export default function Signup() {
 
@@ -54,9 +53,13 @@ export default function Signup() {
 
             setIsOtpSent(true);
 
+            toast.success(response.data.message);
+
             console.log(response.data);
 
         } catch (e) {
+
+            toast.error(e.response.data.message);
 
             console.log("Error in SignUp", e);
         }
@@ -82,10 +85,15 @@ export default function Signup() {
                 throw new Error(response.data.message);
             }
 
+            toast.success(response.data.message);
+
             navigate('/login');
 
-
         } catch (e) {
+
+            window.location.reload();
+
+            toast.error(e.response.data.message);
 
             console.log(e.message);
         }
