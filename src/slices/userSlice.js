@@ -9,7 +9,7 @@ export const userSlice = createSlice({
         isLoading: false,
         isFetching: false,
         token: localStorage.getItem("token") ? localStorage.getItem("token") : null,
-        user: null
+        userDetails: null
     },
 
     reducers: {
@@ -17,17 +17,17 @@ export const userSlice = createSlice({
             state.isLoading = action.payload;
         },
         setIsFetching: (state, action) => {
-            state.isFetching = action.payload; // Corrected typo here
+            state.isFetching = action.payload;
         },
         setToken: (state, action) => {
             state.token = action.payload;
         },
-        setUser: (state, action) => {
-            state.user = action.payload;
+        setUserDetails: (state, action) => {
+            state.userDetails = action.payload;
         }
     }
 });
 
-export const { setIsLoading, setIsFetching, setToken, setUser } = userSlice.actions;
+export const { setIsLoading, setIsFetching, setToken, setUserDetails } = userSlice.actions;
 
 export default userSlice.reducer;

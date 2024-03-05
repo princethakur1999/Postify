@@ -1,5 +1,6 @@
 import User from '../models/user.js';
 import OTP from '../models/otp.js';
+import Profile from '../models/profile.js';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 
@@ -52,9 +53,6 @@ export async function otpHandler(req, res) {
 
     }
 }
-
-
-
 export async function signupHandler(req, res) {
 
     try {
@@ -100,13 +98,28 @@ export async function signupHandler(req, res) {
 
         const hashedPassword = await bcrypt.hash(password, 12);
 
+        const sampleProfile = new Profile({
+
+            profilePic: 'https://img.freepik.com/free-icon/user_318-749758.jpg',
+            coverPhoto: 'https://www.ll-mm.com/images/placeholders/image-placeholder.jpg',
+            phoneNumber: 1234567890,
+            age: 18,
+            gender: 'male',
+            bio: 'Write something...',
+            country: 'India',
+        });
+
+        const savedSampleProfile = await sampleProfile.save();
+
         const newUser = new User({
+
             firstname,
             lastname,
             email,
             password: hashedPassword,
             userid,
             token,
+            profile: savedSampleProfile._id,
         });
 
         await newUser.save();
@@ -132,7 +145,6 @@ export async function signupHandler(req, res) {
         });
     }
 }
-
 
 
 export async function loginHandler(req, res) {
@@ -173,13 +185,17 @@ export async function loginHandler(req, res) {
                 message: "Invalid password!"
             });
         }
+        const payload = { userid: existingUser.userid, toke: existingUser.token, email: existingUser.email };
+
+        const token = jwt.sign(payload, process.env.JWT_SECRET);
 
 
         return res.status(200).json({
 
             success: true,
             message: 'Logged in successfully!',
-            token: existingUser.token
+            token: token,
+            userid: existingUser.userid
         });
 
 

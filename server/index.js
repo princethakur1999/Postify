@@ -57,8 +57,10 @@ connectToCloudinary();
 
 // Routes
 import authRoutes from './routes/auth.js';
+import userRoutes from './routes/user.js'
 
 app.use('/', authRoutes);
+app.use('/', userRoutes);
 
 
 

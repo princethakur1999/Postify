@@ -1,21 +1,15 @@
 import mongoose from 'mongoose';
 
 const profileSchema = new mongoose.Schema(
+
     {
-        user: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "User",
-            required: true
-        },
-        profilePhoto: {
+        profilePic: {
             type: String,
-            trim: true,
-            default: "https://img.freepik.com/free-icon/user_318-749758.jpg"
+            trim: true
         },
         coverPhoto: {
             type: String,
-            trim: true,
-            default: "https://www.systemcenterdudes.com/wp-content/themes/scd/assets/images/post-default.jpg"
+            trim: true
         },
         phoneNumber: {
             type: Number,
@@ -33,11 +27,11 @@ const profileSchema = new mongoose.Schema(
         bio: {
             type: String,
             trim: true,
-            maxlength: 20,
+            maxlength: 20
         },
         country: {
             type: String,
-        },
+        }
     },
     {
         timestamps: true,

@@ -10,8 +10,6 @@ import axios from "axios";
 
 import toast from 'react-hot-toast';
 
-
-
 export default function Login() {
 
     const navigate = useNavigate();
@@ -47,6 +45,8 @@ export default function Login() {
             }
 
             localStorage.setItem("token", response.data.token);
+            localStorage.setItem("userid", response.data.userid);
+
 
             toast.success(response.data.message);
 
