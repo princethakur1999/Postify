@@ -5,57 +5,319 @@ import { IoMdAddCircle } from "react-icons/io";
 import Post from './../components/Post';
 import AddPost from "../components/AddPost";
 
+import { FaImage } from "react-icons/fa";
+import { FaWindowClose } from "react-icons/fa";
+
+import { useEffect, useState } from "react";
+
+import toast from "react-hot-toast";
+import axios from "axios";
 
 export default function Profile() {
+
+
+    const [update, setUpdate] = useState(false);
+
+
+
+    const [isCoverPhotoChangerOpen, setIsCoverPhotoChangerOpen] = useState(false);
+    const [isProfilePicChangerOpen, setIsProfilePicChangerOpen] = useState(false);
+
+
+
+    const [selectedCoverPhoto, setSelectedCoverPhoto] = useState(null);
+    const [selectedProfilePic, setSelectedProfilePic] = useState(null);
+
+
+    const [profileDetails, setProfileDetails] = useState({});
+
+
+    function closeCoverPhotoChanger(e) {
+
+        setIsCoverPhotoChangerOpen(!isCoverPhotoChangerOpen);
+
+        setSelectedCoverPhoto(null);
+    }
+
+    function closeProfielPicChanger(e) {
+
+        setIsProfilePicChangerOpen(!isProfilePicChangerOpen);
+
+        setSelectedProfilePic(null);
+    }
+
+
+    async function updateCoverPhoto(e) {
+
+        e.preventDefault();
+
+        try {
+
+            const maxSizeInBytes = 1 * 1024 * 1024; // 1MB
+
+            if (selectedCoverPhoto.size > maxSizeInBytes) {
+
+                toast.error("File size is too large");
+
+                throw new Error("File size is too large!");
+            }
+
+            const formData = new FormData();
+
+            formData.append('coverPhoto', selectedCoverPhoto);
+
+            const userid = localStorage.getItem("userid");
+
+            const response = await axios.post(`http://localhost:4000/update-cover-photo/${userid}`, formData)
+
+            if (!response.data.success) {
+
+                throw new Error("Could not upload cover photo");
+            }
+
+
+            setUpdate(true);
+
+            toast.success(response.data.message);
+
+
+        } catch (e) {
+
+            console.log(e);
+
+            toast.error(e.response.data.message);
+        }
+        finally {
+
+            setSelectedCoverPhoto('');
+
+            setIsCoverPhotoChangerOpen(!isCoverPhotoChangerOpen);
+
+        }
+
+    }
+
+    async function updateProfilePic(e) {
+
+        e.preventDefault();
+
+        try {
+
+            const maxSizeInBytes = 1 * 1024 * 1024; // 1MB
+
+            if (selectedProfilePic.size > maxSizeInBytes) {
+
+                toast.error("File size is too large");
+
+                throw new Error("File size is too large!");
+            }
+
+            const formData = new FormData();
+
+            formData.append('profilePic', selectedProfilePic);
+
+            const userid = localStorage.getItem("userid");
+
+            const response = await axios.post(`http://localhost:4000/update-profile-pic/${userid}`, formData)
+
+            if (!response.data.success) {
+
+                throw new Error("Could not upload profile pic.");
+            }
+
+            setUpdate(true);
+
+
+            toast.success(response.data.message);
+
+
+        } catch (e) {
+
+            console.log(e);
+
+            toast.error(e.response.data.message);
+
+        }
+        finally {
+
+            setSelectedProfilePic('');
+
+            setIsProfilePicChangerOpen(!isProfilePicChangerOpen);
+
+        }
+
+    }
+
+
+    async function getProfileDetails() {
+
+        try {
+
+            const userid = localStorage.getItem("userid");
+
+            const response = await axios.get(`http://localhost:4000/profile/${userid}`);
+
+            if (!response.data.success) {
+
+                throw new Error("Server error!");
+            }
+
+            setProfileDetails(response.data.user);
+
+
+
+        } catch (e) {
+
+            console.log(e);
+
+            toast.error(e.response.data.message);
+
+        }
+    }
+
+    useEffect(() => {
+
+        getProfileDetails();
+
+    }, [update]);
 
     return (
 
         <div className="w-[98%] sm:w-[60%] flex flex-col justify-start items-center gap-6">
 
+            {
+                isCoverPhotoChangerOpen &&
+                <div className="h-[100vh] w-[100vw] flex justify-center items-center bg-white dark:bg-slate-900 z-50 fixed top-0 bottom-0 left-0 right-0">
+
+                    <form className="min-h-[220px] max-h-max w-[320px] relative pt-8 bg-blue-800 rounded-md flex flex-col justify-around items-center gap-8 p-2">
+
+                        <span className="absolute text-2xl text-white top-2 right-2" onClick={closeCoverPhotoChanger}>
+                            <FaWindowClose />
+                        </span>
+
+                        <label
+                            htmlFor="coverPhoto"
+                            className="w-full cursor-pointer mt-4"
+                        >
+
+                            <span className="flex justify-center items-center gap-2 bg-white w-full rounded-md">
+                                <FaImage className="text-4xl" />
+                            </span>
+
+                            <input
+                                className="hidden"
+                                type="file"
+                                id="coverPhoto"
+                                name="selectedCoverPhoto"
+                                onChange={(e) => setSelectedCoverPhoto(e.target.files[0])}
+                            />
+                        </label>
+
+                        {
+                            selectedCoverPhoto &&
+                            <img
+                                className="max-h-[300px] min-h-max w-full py-2 object-cover"
+                                src={URL.createObjectURL(selectedCoverPhoto)}
+                                alt="selectedCoverPhoto"
+                            />
+                        }
+
+                        <button onClick={updateCoverPhoto} className="bg-white px-4 py1 text-slate-900 font-bold text-center rounded-md">
+                            Update
+                        </button>
+                    </form>
+                </div>
+            }
+
+            {
+                isProfilePicChangerOpen &&
+                <div className="h-[100vh] w-[100vw] flex justify-center items-center bg-white dark:bg-slate-900 z-50 fixed top-0 bottom-0 left-0 right-0">
+
+                    <form className="min-h-[220px] max-h-max w-[320px] relative pt-8 bg-blue-800 rounded-md flex flex-col justify-around items-center gap-8 p-2">
+
+                        <span className="absolute text-2xl text-white top-2 right-2" onClick={closeProfielPicChanger}>
+                            <FaWindowClose />
+                        </span>
+
+                        <label
+                            htmlFor="profilePic"
+                            className="w-full cursor-pointer mt-4"
+                        >
+
+                            <span className="flex justify-center items-center gap-2 bg-white w-full rounded-md">
+                                <FaImage className="text-4xl" />
+                            </span>
+
+                            <input
+                                className="hidden"
+                                type="file"
+                                id="profilePic"
+                                name="selectedProfilePic"
+                                onChange={(e) => setSelectedProfilePic(e.target.files[0])}
+                            />
+                        </label>
+
+                        {
+                            selectedProfilePic &&
+                            <img
+                                className="max-h-[300px] min-h-max w-full py-2 object-cover"
+                                src={URL.createObjectURL(selectedProfilePic)}
+                                alt="selectedProfilePic"
+                            />
+                        }
+
+                        <button onClick={updateProfilePic} className="bg-white px-4 py1 text-slate-900 font-bold text-center rounded-md">
+                            Update
+                        </button>
+                    </form>
+                </div>
+            }
+
             <section className="w-[100%] mb-8">
 
                 <div className="w-[100%] relative border">
 
-                    <img className="w-[100%] h-[300px]" src="https://rezista.in/wp-content/uploads/2020/07/Hero-Banner-Placeholder-Dark-1024x480-1.png" alt="coverPhoto" />
+                    <img className="w-[100%] h-[150px] sm:h-[300px]" src={(profileDetails.profile?.coverPhoto ? profileDetails.profile.coverPhoto : 'https://www.ll-mm.com/images/placeholders/image-placeholder.jpg')} alt="coverPhoto" />
 
-                    <p className="absolute top-4 right-4 text-4xl text-blue-800 cursor-pointer" title="Add cover photo">
-                        < FaCamera />
+                    <p onClick={() => setIsCoverPhotoChangerOpen(!isCoverPhotoChangerOpen)} className="absolute top-4 right-4 text-2xl sm:text-4xl text-blue-800 cursor-pointer" title="Add cover photo">
+                        < FaCamera className="bg-white p-1" />
                     </p>
 
-                    <div className="h[100px] w-[100px]  rounded-full absolute left-1/2 transform -translate-x-1/2 bottom-0">
+                    <div className="h-[80px] w-[80px] sm:h-[160px] sm:w-[160px]  rounded-full absolute left-1/2 transform -translate-x-1/2 -bottom-1/4 border-4 border-slate-900">
 
-                        <img className="h-[100%] w-[100%] object-cover" src="https://img.freepik.com/free-icon/user_318-749758.jpg" />
+                        <img className="h-[100%] w-[100%] rounded-full object-cover" src={(profileDetails.profile?.profilePic ? profileDetails.profile.profilePic : 'https://img.freepik.com/free-icon/user_318-749758.jpg')} alt="profilePic" />
 
-                        <p className="text-xl absolute right-[2px] bottom-[12px] font-bold rounded-full bg-black text-white p-1 cursor-pointer" title="Add profile photo">
+                        <p onClick={() => setIsProfilePicChangerOpen(!isProfilePicChangerOpen)} className="text-sm sm:text-2xl absolute sm:-right-[6px] sm:bottom-[22px] -right-[2px] bottom-[10px] font-bold rounded-full bg-slate-900 text-white p-1 cursor-pointer" title="Add profile photo">
                             < IoMdAddCircle />
                         </p>
                     </div>
 
-                    <p className="text-white bg-blue-800 px-2 font-bold text-sm sm:text-2xl absolute top-4 left-4">
-                        Username
+                    <p className="bg-slate-900 text-white px-2 text-sm sm:text-xl absolute -top-3 border sm:-top-4 left-4">
+                        {profileDetails.userid}
                     </p>
 
                 </div>
             </section >
 
 
-            <section className="w-[100%] flex justify-between items-center gap-8 border-b py-2">
+            <section className="w-[100%] flex justify-between items-center gap-8 border-b py-2 mt-8">
 
-                <p className="text-slate-900 dark:text-white text-sm sm:text-2xl flex gap-2 justify-center items-center">
-                    <span className="w-full text-center">0</span>
+                <p className="text-slate-900 dark:text-white text-sm sm:text-xl flex gap-2 justify-center items-center">
+                    <span className="w-full text-center">{profileDetails.followers?.length}</span>
                     <span>Followers</span>
                 </p>
 
-                <p className="text-slate-900 dark:text-white text-sm sm:text-2xl flex gap-2 justify-center items-center">
-                    <span className="w-full text-center">0</span>
-                    <span>Following</span>
-                </p>
 
                 <button className="flex justify-evenly p-1 items-center gap-2 w-[75px] font-bold bg-blue-800 text-white dark:bg-white dark:text-slate-900 rounded-md">
                     <p>Edit</p>
                     <FaUserEdit />
                 </button>
 
+
+                <p className="text-slate-900 dark:text-white text-sm sm:text-xl flex gap-2 justify-center items-center">
+                    <span className="w-full text-center">{profileDetails.following?.length}</span>
+                    <span>Following</span>
+                </p>
             </section>
 
             <AddPost />

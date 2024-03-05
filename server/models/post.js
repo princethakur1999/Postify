@@ -1,11 +1,7 @@
 import mongoose from 'mongoose';
 
-const post = new mongoose.Schema(
+const postSchema = new mongoose.Schema(
     {
-        user: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "User"
-        },
         description: {
             type: String,
             trim: true
@@ -29,6 +25,6 @@ const post = new mongoose.Schema(
     }
 );
 
-const Post = mongoose.model("Post", post);
+const Post = mongoose.model("Post", postSchema);
 
 export default Post;

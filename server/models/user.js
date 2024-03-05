@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 
 const userSchema = new mongoose.Schema(
+
     {
         firstname: {
             type: String,
@@ -48,12 +49,12 @@ const userSchema = new mongoose.Schema(
         },
         profile: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "Profile"
+            ref: 'Profile'
         },
-        posts: {
+        posts: [{
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Post'
-        },
+        }],
         followers: [{
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User',
