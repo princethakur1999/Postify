@@ -1,5 +1,6 @@
 import User from '../models/user.js';
 import Profile from '../models/profile.js';
+import Post from '../models/post.js';
 
 import { v2 as cloudinary } from 'cloudinary';
 
@@ -83,6 +84,58 @@ export async function searchById(req, res) {
             message: 'Internal server error'
         });
     }
+}
+
+
+
+export async function getProfileDetails(req, res) {
+
+    try {
+
+        const { userid } = req.params;
+
+
+        if (!userid) {
+
+            return res.status(400).json({
+                success: false,
+                message: "User ID is required!"
+            });
+        }
+
+
+        const user = await User.findOne({ userid: userid }).select("-password").populate("profile").populate("posts").exec();
+
+        console.log(user);
+
+        if (!user) {
+
+            return res.status(404).json({
+
+                success: false,
+                message: "No such user found."
+            })
+        }
+
+        return res.status(200).json({
+
+            success: true,
+            message: "Successfully fetched the profile details.",
+            user: user
+        });
+
+
+    } catch (e) {
+
+        console.error('Error getting profile details: ', e);
+
+        return res.status(500).json({
+
+            success: false,
+            message: 'Server error'
+        });
+    }
+
 }
 
 
@@ -226,57 +279,96 @@ export async function updateProfilePic(req, res) {
 
 
 
-export async function getProfileDetails(req, res) {
+
+
+
+
+export async function createPost(req, res) {
 
     try {
 
+        const { post } = req.files;
+
         const { userid } = req.params;
 
+        console.log(post);
 
-        if (!userid) {
+        if (!post || !userid) {
 
             return res.status(400).json({
+
                 success: false,
-                message: "User ID is required!"
+                message: "Missing fields!"
             });
         }
 
-
-        const user = await User.findOne({ userid: userid }).select("-password").populate("profile").exec();
-
-        console.log(user);
+        const user = await User.findOne({ userid: userid });
 
         if (!user) {
 
-            return res.status(404).json({
+            return res.status(400).json({
 
                 success: false,
-                message: "No such user found."
+                message: "User not found."
+            });
+        }
+
+        const option = {
+
+            folder: "Micropost"
+        }
+
+        const cloudinaryResponse = await cloudinary.uploader.upload(post.tempFilePath, option);
+
+
+        const newPost = new Post({
+
+            image: cloudinaryResponse.secure_url
+        });
+
+        const savedPost = await newPost.save();
+
+
+
+        console.log(savedPost);
+
+
+        if (!savedPost) {
+
+            return res.status(400).json({
+
+                success: false,
+                message: "Image upload failed."
+            })
+        }
+
+        const postIdSaved = await User.findByIdAndUpdate(user._id, { $push: { posts: savedPost._id } }, { new: true });
+
+        console.log(postIdSaved);
+
+        if (!postIdSaved) {
+
+            return res.status(400).json({
+                success: false,
+                message: "User not found."
             })
         }
 
         return res.status(200).json({
 
             success: true,
-            message: "Successfully fetched the profile details.",
-            user: user
+            message: 'Uploaded!',
         });
-
 
     } catch (e) {
 
-        console.error('Error getting profile details: ', e);
+        console.log(e);
 
         return res.status(500).json({
 
             success: false,
-            message: 'Server error'
-        });
+            message: "Server error!"
+        })
+
     }
-
 }
-
-
-
-
-

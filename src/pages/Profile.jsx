@@ -324,14 +324,9 @@ export default function Profile() {
 
 
             <section className="w-[100%] grid grid-cols-1 justify-items-center gap-y-16 gap-x-4 py-4">
-                <Post />
-                <Post />
-                <Post />
-                <Post />
-                <Post />
-                <Post />
-                <Post />
-                <Post />
+                {
+                    profileDetails.posts?.map((post) => <Post post={post} userid={profileDetails.userid} profilePic={profileDetails.profile.profilePic} key={post._id} />)
+                }
             </section>
 
         </div >

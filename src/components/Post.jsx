@@ -7,15 +7,41 @@ import { IoSend } from "react-icons/io5";
 
 import { useState } from "react";
 
-
 import Comment from "./Comment";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 
-
-
-export default function Post() {
+export default function Post({ post, userid, profilePic }) {
 
     const [isCommentBoxOpen, setIsCommentBoxOpen] = useState(false);
+
+
+    async function addLikeToThisPost(id) {
+
+        try {
+
+            const response = await axios.post(`http://localhost:4000/like/${id}/${userid}`);
+
+            if (!response.data.success) {
+
+                throw new Error("Server error");
+            }
+
+
+            toast.success(response.data.message);
+
+
+            window.location.reload();
+
+
+        } catch (e) {
+
+            console.log(e);
+
+            toast.error(e.response.data.message);
+        }
+    }
 
     return (
 
@@ -27,14 +53,14 @@ export default function Post() {
 
                     <div className="w-max flex justify-between items-center gap-4">
 
-                        <img className="h-[40px] w-[40px] rounded-full bg-white border" src="https://icons.veryicon.com/png/o/internet--web/prejudice/user-128.png" alt="profile" />
+                        <img className="h-[40px] w-[40px] rounded-full bg-white border" src={profilePic} alt="profile" />
 
                         <p className="text-slate-900 dark:text-white font-bold cursor-pointer">
-                            userid
+                            {userid}
                         </p>
 
-                        <p className="text-slate-900 dark:text-white ">
-                            time
+                        <p className="text-slate-900 dark:text-white">
+                            {new Date(post.createdAt).toLocaleString()}
                         </p>
 
                     </div>
@@ -47,7 +73,7 @@ export default function Post() {
 
 
                 <div className="h-[80%] w-[100%] flex justify-center items-center">
-                    <img className="h-[100%] w-auto object-cover" src="https://english.cdn.zeenews.com/sites/default/files/2023/04/12/1182381-gallerydhoni.jpg" alt="post" />
+                    <img className="h-[100%] w-auto object-cover" src={post.image} alt="post" />
                 </div>
             </div>
 
@@ -55,18 +81,18 @@ export default function Post() {
             <div className="w-[100%] flex justify-between py-2 border-t">
 
                 <p className="dark:text-white text-slate-900 text-xl cursor-pointer">
-                    100
+                    {post.likes?.length}
                 </p>
 
                 <p className="dark:text-white text-slate-900 text-xl cursor-pointer">
-                    002
+                    {post.comments?.length}
                 </p>
             </div>
 
 
             <div className="w-[100%] flex justify-between py-2">
 
-                <p className="dark:text-white text-slate-900 text-3xl cursor-pointer">
+                <p onClick={() => addLikeToThisPost(post._id)} className="dark:text-white text-slate-900 text-3xl cursor-pointer dark:hover:text-blue-800 hover:text-blue-800">
                     <BiSolidLike />
                 </p>
 
@@ -87,14 +113,14 @@ export default function Post() {
 
                                 <div className="w-max flex justify-between items-center gap-4">
 
-                                    <img className="h-[40px] w-[40px] rounded-full bg-white border" src="https://icons.veryicon.com/png/o/internet--web/prejudice/user-128.png" alt="profile" />
+                                    <img className="h-[40px] w-[40px] rounded-full bg-white border" src={profilePic} alt="profile" />
 
                                     <p className="text-slate-900 dark:text-white font-bold cursor-pointer">
-                                        userid
+                                        {userid}
                                     </p>
 
                                     <p className="text-slate-900 dark:text-white ">
-                                        time
+                                        {new Date(post.createdAt).toLocaleString()}
                                     </p>
 
                                 </div>
@@ -107,7 +133,7 @@ export default function Post() {
 
 
                             <div className="h-[80%] w-[100%] flex justify-center items-center">
-                                <img className="h-[100%] w-auto object-cover" src="https://english.cdn.zeenews.com/sites/default/files/2023/04/12/1182381-gallerydhoni.jpg" alt="post" />
+                                <img className="h-[100%] w-auto object-cover" src={post.image} alt="post" />
                             </div>
                         </div>
 
@@ -115,24 +141,15 @@ export default function Post() {
                         <div className="w-[100%] flex justify-between border-y py-2 my-2">
 
                             <p className="dark:text-white text-slate-900 text-xl cursor-pointer">
-                                100
+                                {post.likes?.length}
                             </p>
 
                             <p className="dark:text-white text-slate-900 text-xl cursor-pointer">
-                                002
+                                {post.comments?.length}
                             </p>
                         </div>
 
                         <div className="flex flex-col gap-2">
-                            <Comment />
-                            <Comment />
-                            <Comment />
-                            <Comment />
-                            <Comment />
-                            <Comment />
-                            <Comment />
-                            <Comment />
-                            <Comment />
                             <Comment />
                             <Comment />
                             <Comment />
