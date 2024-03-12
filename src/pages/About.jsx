@@ -240,7 +240,7 @@ export default function About() {
                         <span className="font-semibold">
 
                             {
-                                myInfo?.profile?.joinedOn
+                                new Date(myInfo?.profile?.joinedOn).toLocaleString()
                             }
 
                         </span>
@@ -257,7 +257,7 @@ export default function About() {
 
                     <p className="flex justify-between items-center text-white text-left w-full text-lg">
                         <span>
-                            Describe yourself in one word
+                            One word
                         </span>
                         <span className="font-semibold">
                             {myInfo?.profile?.describeYourselfInOneWord}
