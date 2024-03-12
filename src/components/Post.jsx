@@ -14,6 +14,8 @@ import toast from "react-hot-toast";
 import { format } from 'date-fns';
 
 
+const BASE_URL = import.meta.env.VITE_REACT_APP_API_URL;
+
 
 export default function Post({ post, userid, profilePic }) {
 
@@ -30,7 +32,7 @@ export default function Post({ post, userid, profilePic }) {
 
         try {
 
-            const response = await axios.post(`http://localhost:4000/like/${postid}/${userid}`);
+            const response = await axios.post(`${BASE_URL}/like/${postid}/${userid}`);
 
             if (!response.data.success) {
 
@@ -57,7 +59,7 @@ export default function Post({ post, userid, profilePic }) {
         try {
             e.preventDefault();
 
-            const response = await axios.post(`http://localhost:4000/comment/${post._id}/${comment}/${userid}`);
+            const response = await axios.post(`${BASE_URL}/comment/${post._id}/${comment}/${userid}`);
 
             if (!response.data.success) {
 

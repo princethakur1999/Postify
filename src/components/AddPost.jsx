@@ -9,6 +9,7 @@ import { FaImage } from "react-icons/fa";
 import { IoSend } from "react-icons/io5";
 
 
+const BASE_URL = import.meta.env.VITE_REACT_APP_API_URL;
 
 export default function AddPost() {
 
@@ -31,7 +32,7 @@ export default function AddPost() {
 
             const userid = localStorage.getItem("userid");
 
-            const response = await axios.post(`http://localhost:4000/create-post/${userid}`, formData);
+            const response = await axios.post(`${BASE_URL}/create-post/${userid}`, formData);
 
             if (!response.data.success) {
 

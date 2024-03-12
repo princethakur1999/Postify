@@ -12,6 +12,7 @@ import User from "../components/User"
 import ReceivedRequestUser from '../components/ReceivedRequestUser';
 import SentRequestUser from "../components/SentRequestUser";
 
+const BASE_URL = import.meta.env.VITE_REACT_APP_API_URL;
 
 export default function Search() {
 
@@ -67,7 +68,7 @@ export default function Search() {
 
             const userid = localStorage.getItem("userid");
 
-            const response = await axios.get(`http://localhost:4000/users/${userid}`);
+            const response = await axios.get(`${BASE_URL}/users/${userid}`);
 
             if (!response.data.success) {
 
@@ -90,7 +91,7 @@ export default function Search() {
 
         try {
 
-            const response = await axios.get(`http://localhost:4000/search-user-by-userid/${id}`);
+            const response = await axios.get(`${BASE_URL}/search-user-by-userid/${id}`);
 
             if (!response.data.success) {
 
@@ -118,7 +119,7 @@ export default function Search() {
 
             const userid = localStorage.getItem("userid");
 
-            const response = await axios.get(`http://localhost:4000/view-sent-requests/${userid}`);
+            const response = await axios.get(`${BASE_URL}/view-sent-requests/${userid}`);
 
             if (!response.data.success) {
 
@@ -149,7 +150,7 @@ export default function Search() {
 
             const userid = localStorage.getItem("userid");
 
-            const response = await axios.get(`http://localhost:4000/view-received-requests/${userid}`);
+            const response = await axios.get(`${BASE_URL}/view-received-requests/${userid}`);
 
             if (!response.data.success) {
 

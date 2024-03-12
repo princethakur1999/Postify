@@ -1,6 +1,8 @@
 import toast from "react-hot-toast";
 import axios from "axios";
 
+const BASE_URL = import.meta.env.VITE_REACT_APP_API_URL;
+
 export default function ReceivedRequestUser({ user }) {
 
 
@@ -12,7 +14,7 @@ export default function ReceivedRequestUser({ user }) {
 
             const userid = localStorage.getItem("userid");
 
-            const response = await axios.delete(`http://localhost:4000/cancel-received-request/${user._id}/${userid}`);
+            const response = await axios.delete(`${BASE_URL}/cancel-received-request/${user._id}/${userid}`);
 
             if (!response.data.success) {
 
@@ -41,7 +43,7 @@ export default function ReceivedRequestUser({ user }) {
 
             const userid = localStorage.getItem("userid");
 
-            const response = await axios.post(`http://localhost:4000/confrim-request/${user._id}/${userid}`)
+            const response = await axios.post(`${BASE_URL}/confrim-request/${user._id}/${userid}`)
 
             if (!response.data.success) {
 

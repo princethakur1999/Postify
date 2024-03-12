@@ -1,6 +1,9 @@
 import toast from "react-hot-toast";
 import axios from "axios";
 
+const BASE_URL = import.meta.env.VITE_REACT_APP_API_URL;
+
+
 export default function SentRequestUser({ user }) {
 
     async function cancelSentRequest(e) {
@@ -11,7 +14,7 @@ export default function SentRequestUser({ user }) {
 
             const userid = localStorage.getItem("userid");
 
-            const response = await axios.delete(`http://localhost:4000/cancel-sent-request/${user._id}/${userid}`);
+            const response = await axios.delete(`${BASE_URL}/cancel-sent-request/${user._id}/${userid}`);
 
             if (!response.data.success) {
 

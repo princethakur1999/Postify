@@ -11,6 +11,8 @@ import OtpInput from 'react-otp-input';
 
 import toast from "react-hot-toast";
 
+const BASE_URL = import.meta.env.VITE_REACT_APP_API_URL;
+
 export default function Signup() {
 
     const navigate = useNavigate();
@@ -43,7 +45,7 @@ export default function Signup() {
 
             e.preventDefault();
 
-            const response = await axios.post(`http://localhost:4000/otp/${signupDetails.email}`);
+            const response = await axios.post(`${BASE_URL}/otp/${signupDetails.email}`);
 
 
             if (!response.data.success) {
@@ -78,7 +80,7 @@ export default function Signup() {
             formData.append('confirmPassword', signupDetails.confirmPassword);
             formData.append('otp', otp);
 
-            const response = await axios.post("http://localhost:4000/signup", formData);
+            const response = await axios.post(`${BASE_URL}/signup`, formData);
 
             if (!response.data.success) {
 

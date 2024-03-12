@@ -1,6 +1,8 @@
 import toast from "react-hot-toast";
 import axios from "axios";
 
+const BASE_URL = import.meta.env.VITE_REACT_APP_API_URL;
+
 export default function User({ user }) {
 
 
@@ -14,7 +16,7 @@ export default function User({ user }) {
 
             const userid = localStorage.getItem('userid');
 
-            const response = await axios.post(`http://localhost:4000/send-follow-request/${user._id}/${userid}`);
+            const response = await axios.post(`${BASE_URL}/send-follow-request/${user._id}/${userid}`);
 
 
             if (!response.data.success) {

@@ -8,6 +8,7 @@ import AddPost from "../components/AddPost";
 
 import FollowingPost from '../components/FollowingsPost';
 
+const BASE_URL = import.meta.env.VITE_REACT_APP_API_URL;
 
 export default function Home() {
 
@@ -19,7 +20,7 @@ export default function Home() {
 
             const userid = localStorage.getItem("userid");
 
-            const response = await axios.get(`http://localhost:4000/followers-posts/${userid}`);
+            const response = await axios.get(`${BASE_URL}/followers-posts/${userid}`);
 
             if (!response.data.success) {
 

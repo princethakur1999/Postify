@@ -10,6 +10,8 @@ import axios from "axios";
 
 import toast from 'react-hot-toast';
 
+const BASE_URL = import.meta.env.VITE_REACT_APP_API_URL;
+
 export default function Login() {
 
     const navigate = useNavigate();
@@ -35,7 +37,7 @@ export default function Login() {
 
             e.preventDefault();
 
-            const response = await axios.post('http://localhost:4000/login', loginDetails);
+            const response = await axios.post(`${BASE_URL}/login`, loginDetails);
 
             if (!response.data.success) {
 

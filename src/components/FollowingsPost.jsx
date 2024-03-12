@@ -1,4 +1,3 @@
-import { MdDelete } from "react-icons/md";
 import { BiSolidLike } from "react-icons/bi";
 import { FaCommentAlt } from "react-icons/fa";
 import { FaWindowClose } from "react-icons/fa";
@@ -13,7 +12,7 @@ import toast from "react-hot-toast";
 
 import { format } from 'date-fns';
 
-
+const BASE_URL = import.meta.env.VITE_REACT_APP_API_URL;
 
 export default function FollowingsPost({ post }) {
 
@@ -30,7 +29,7 @@ export default function FollowingsPost({ post }) {
 
         try {
 
-            const response = await axios.post(`http://localhost:4000/like/${postid}/${userid}`);
+            const response = await axios.post(`${BASE_URL}/like/${postid}/${userid}`);
 
 
             if (!response.data.success) {
@@ -58,7 +57,7 @@ export default function FollowingsPost({ post }) {
         try {
             e.preventDefault();
 
-            const response = await axios.post(`http://localhost:4000/comment/${post._id}/${comment}/${userid}`);
+            const response = await axios.post(`${BASE_URL}/comment/${post._id}/${comment}/${userid}`);
 
             if (!response.data.success) {
 

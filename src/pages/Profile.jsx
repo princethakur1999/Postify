@@ -14,6 +14,8 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import axios from "axios";
 
+const BASE_URL = import.meta.env.VITE_REACT_APP_API_URL;
+
 export default function Profile() {
 
 
@@ -68,7 +70,7 @@ export default function Profile() {
 
             const userid = localStorage.getItem("userid");
 
-            const response = await axios.post(`http://localhost:4000/update-cover-photo/${userid}`, formData)
+            const response = await axios.post(`${BASE_URL}/update-cover-photo/${userid}`, formData)
 
             if (!response.data.success) {
 
@@ -118,7 +120,7 @@ export default function Profile() {
 
             const userid = localStorage.getItem("userid");
 
-            const response = await axios.post(`http://localhost:4000/update-profile-pic/${userid}`, formData)
+            const response = await axios.post(`${BASE_URL}/update-profile-pic/${userid}`, formData)
 
             if (!response.data.success) {
 
@@ -155,7 +157,7 @@ export default function Profile() {
 
             const userid = localStorage.getItem("userid");
 
-            const response = await axios.get(`http://localhost:4000/profile/${userid}`);
+            const response = await axios.get(`${BASE_URL}/profile/${userid}`);
 
             if (!response.data.success) {
 

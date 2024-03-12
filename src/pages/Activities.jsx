@@ -4,6 +4,9 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
+
+const BASE_URL = import.meta.env.VITE_REACT_APP_API_URL;
+
 export default function Activities() {
 
 
@@ -16,7 +19,7 @@ export default function Activities() {
 
             const userid = localStorage.getItem("userid");
 
-            const response = await axios.get(`http://localhost:4000/get-activities/${userid}`);
+            const response = await axios.get(`${BASE_URL}/get-activities/${userid}`);
 
             if (!response.data.success) {
 

@@ -43,7 +43,7 @@ export default function About() {
 
         try {
 
-            const response = await axios.get(`http://localhost:4000/profile/${userid}`);
+            const response = await axios.get(`${BASE_URL}/profile/${userid}`);
 
             if (!response.data.success) {
 
@@ -85,7 +85,7 @@ export default function About() {
 
             try {
 
-                const response = await axios.get(`http://localhost:4000/check-userid/${value}`);
+                const response = await axios.get(`${BASE_URL}/check-userid/${value}`);
 
                 if (!response.data.success) {
 
@@ -121,7 +121,7 @@ export default function About() {
             console.log(newDetails);
 
 
-            const response = await axios.put(`http://localhost:4000/edit-profile/${userid}`, newDetails);
+            const response = await axios.put(`${BASE_URL}/edit-profile/${userid}`, newDetails);
 
             if (!response.data.success) {
 
