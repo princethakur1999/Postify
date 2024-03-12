@@ -16,7 +16,7 @@ export async function addLike(req, res) {
             return res.status(400).json({
 
                 success: false,
-                message: 'Missing fields in the request parameters.'
+                message: 'Missing fields in the request parameters!'
             });
         }
 
