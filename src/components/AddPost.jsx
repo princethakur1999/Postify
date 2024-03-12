@@ -40,9 +40,7 @@ export default function AddPost() {
 
             toast.success(response.data.message);
 
-
-            navigate('/profile');
-
+            window.location.reload();
 
         } catch (e) {
 
@@ -56,7 +54,7 @@ export default function AddPost() {
     return (
 
 
-        <div className="w-full p-1 sm:p-4 border rounded-md bg-blue-800 dark:bg-white">
+        <div className="w-full h-auto p-1 sm:p-4 border rounded-md bg-3 dark:bg-white">
 
 
             <form className="rounded-lg flex justify-between items-center space-x-4">
@@ -77,8 +75,15 @@ export default function AddPost() {
                     </div>
                 </label>
 
+                {
+                    post &&
+                    <div className="h-[300px] w-[60%] flex justify-center items-center py-8">
+                        <img className="h-[100%] w-full object-cover aspect-square rounded-lg" src={URL.createObjectURL(post)} alt="post" />
+                    </div>
+                }
 
-                <button onClick={createPost} className="text-2xl dark:text-blue-800 text-white">
+
+                <button onClick={createPost} className="text-2xl text-blue-800">
                     <IoSend />
                 </button>
             </form>

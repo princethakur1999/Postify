@@ -1,28 +1,26 @@
 import toast from "react-hot-toast";
 import axios from "axios";
 
-export default function User({ user }) {
+export default function SentRequestUser({ user }) {
 
-
-    async function sendRequest(e) {
-
+    async function cancelSentRequest(e) {
 
         try {
 
             e.preventDefault();
 
+            const userid = localStorage.getItem("userid");
 
-            const userid = localStorage.getItem('userid');
-
-            const response = await axios.post(`http://localhost:4000/send-follow-request/${user._id}/${userid}`);
-
+            const response = await axios.delete(`http://localhost:4000/cancel-sent-request/${user._id}/${userid}`);
 
             if (!response.data.success) {
 
-                throw new Error("Error!");
+                throw new Error(response.data.message);
             }
 
-            toast.success(`Request sent!`);
+            toast.success("Canceled!");
+
+            window.location.reload();
 
         } catch (e) {
 
@@ -30,7 +28,9 @@ export default function User({ user }) {
 
             toast.error(e.response.data.message);
         }
+
     }
+
 
     return (
 
@@ -40,7 +40,7 @@ export default function User({ user }) {
 
             <p className="text-slate-900">@{user.userid}</p>
 
-            <p onClick={sendRequest} className="w-[40%] text-center font-bold text-sm cursor-pointer bg-4 text-white rounded-full py-1">Follow</p>
+            <p onClick={cancelSentRequest} className="w-[40%] text-center font-bold text-sm cursor-pointer bg-4 text-white rounded-full py-1">Cancel</p>
 
         </div>
     )

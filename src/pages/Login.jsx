@@ -63,11 +63,11 @@ export default function Login() {
 
     return (
 
-        <div className="h-auto w-[100%] sm:w-[25%] py-4 bg-white dark:bg-slate-900 sm:border flex flex-col justify-start items-center gap-4 rounded-lg">
+        <div className="h-auto w-[98%] sm:w-[25%] py-12 bg-3 border flex flex-col justify-start items-center gap-4 rounded-lg mt-28">
 
-            <h2 className="text-blue-800 dark:text-white text-2xl font-bold mb-2">Login</h2>
+            <h2 className="text-blue-800  text-2xl font-bold mb-2">Login</h2>
 
-            <div className="w-[80%] h-[2px] bg-blue-800 dark:bg-white"></div>
+            <div className="w-[80%] h-[2px] bg-blue-800"></div>
 
 
             <form
@@ -107,7 +107,7 @@ export default function Login() {
                 </div>
 
 
-                <button className="bg-blue-800 w-[100%] cursor-pointer focus-within:outline-none text-lg text-white font-bold text-center rounded-full mt-6 py-1">
+                <button className="bg-4 w-[100%] cursor-pointer focus-within:outline-none text-lg text-white font-bold text-center rounded-full mt-6 py-1">
                     Login
                 </button>
 

@@ -4,6 +4,10 @@ import mongoose from 'mongoose';
 const commentSchema = new mongoose.Schema(
 
     {
+        post: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Post"
+        },
         user: {
             type: mongoose.Types.ObjectId,
             ref: "User"
@@ -11,10 +15,6 @@ const commentSchema = new mongoose.Schema(
         comment: {
             type: String,
             trim: true
-        },
-        post: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Post"
         },
     },
     {

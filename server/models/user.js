@@ -29,6 +29,7 @@ const userSchema = new mongoose.Schema(
             type: String,
             trim: true,
             unique: true,
+            lowercase: true,
         },
         token: {
             type: String,
@@ -74,6 +75,14 @@ const userSchema = new mongoose.Schema(
         profileViewers: [{
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User'
+        }],
+        notifications: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Notification"
+        }],
+        activities: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Activity"
         }],
         messages: [{
             type: mongoose.Schema.Types.ObjectId,

@@ -103,16 +103,16 @@ export default function Signup() {
 
     return (
 
-        <div className="h-auto w-[100%] sm:w-[25%] py-4 bg-white dark:bg-slate-900 sm:border flex flex-col justify-start items-center gap-4 rounded-lg">
+        <div className="bg-3 h-auto w-[98%] sm:w-[25%] border bg-white dark:bg-slate-900 sm:border flex flex-col justify-start items-center gap-4 rounded-lg mt-24 py-8">
 
 
-            <h2 className="text-blue-800 dark:text-white text-2xl font-bold mb-2">
+            <h2 className="text-blue-800 text-2xl font-bold mb-2">
                 {
                     !isOtpSent ? "Create an Account" : "Enter OTP"
                 }
             </h2>
 
-            <div className="w-[80%] h-[2px] bg-blue-800 dark:bg-white"></div>
+            <div className="w-[80%] h-[2px] bg-blue-800"></div>
 
 
 
@@ -197,7 +197,7 @@ export default function Signup() {
                             </div>
 
 
-                            <button className="bg-blue-800 w-[100%] cursor-pointer focus-within:outline-none text-lg text-white font-bold text-center rounded-full mt-6 py-1">
+                            <button className="bg-4 w-[100%] cursor-pointer focus-within:outline-none text-lg text-white font-bold text-center rounded-full mt-6 py-1">
                                 Signup
                             </button>
 
@@ -221,11 +221,11 @@ export default function Signup() {
                             />
 
 
-                            <p onClick={signupHandler} className="w-[100%] text-blue-800 font-bold text-center cursor-pointer" >
+                            <p onClick={signupHandler} className="w-[100%] text-slate-900 underline font-bold text-center cursor-pointer" >
                                 Resend OTP
                             </p>
 
-                            <button onClick={verifyOtp} className="bg-blue-800 w-[100%] cursor-pointer focus-within:outline-none text-lg text-white font-bold text-center rounded-full mt-6 py-1">Verify</button>
+                            <button onClick={verifyOtp} className="bg-4 w-[100%] cursor-pointer focus-within:outline-none text-lg text-white font-bold text-center rounded-full mt-6 py-1">Verify</button>
 
                         </div>
 

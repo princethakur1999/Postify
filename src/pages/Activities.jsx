@@ -1,29 +1,29 @@
-import Notification from "../components/Notification";
+import Activity from "../components/Activity";
 
 import toast from "react-hot-toast";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-export default function Notifications() {
+export default function Activities() {
 
 
-    const [notifications, setNotifications] = useState(null);
+    const [activities, setActivities] = useState(null);
 
 
-    const getNotifications = async () => {
+    const getActivities = async () => {
 
         try {
 
             const userid = localStorage.getItem("userid");
 
-            const response = await axios.get(`http://localhost:4000/get-notifications/${userid}`);
+            const response = await axios.get(`http://localhost:4000/get-activities/${userid}`);
 
             if (!response.data.success) {
 
                 throw new Error(response.data.message);
             }
 
-            setNotifications(response.data.notifications);
+            setActivities(response.data.activities);
 
         } catch (e) {
 
@@ -36,7 +36,7 @@ export default function Notifications() {
 
     useEffect(() => {
 
-        getNotifications();
+        getActivities();
 
     }, []);
 
@@ -46,11 +46,11 @@ export default function Notifications() {
         <div className="w-[98%] sm:w-[60%] max-h-max flex flex-col justify-between items-center gap-8 mt-24">
 
             <h2 className="w-full font-bold text-right border-b text-blue-800 text-xl pb-2 dark:text-white">
-                Notifications
+                Activities
             </h2>
 
             {
-                notifications?.map((notification) => <Notification notification={notification} key={notification._id} />)
+                activities?.map((activity) => <Activity activity={activity} key={activity._id} />)
             }
         </div>
     )

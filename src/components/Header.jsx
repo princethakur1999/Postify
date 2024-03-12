@@ -53,26 +53,31 @@ export default function Header() {
         setIsMenuOpen(!isMenuOpen);
     }
 
+
     return (
 
-        <nav className="h-[64px] w-[100%] bg-white dark:bg-slate-900 flex justify-between items-center px-4 z-40 fixed top-0 right-0 left-0">
+
+        <nav className="h-[64px] w-[100%] bg-4 flex justify-between items-center px-2 z-40 fixed top-0 right-0 left-0">
 
 
-            <div className="h-[60%] w-[30%] sm:w-[10%] flex justify-center items-center bg-blue-800 text-white">
+
+            <div className="h-[60%] w-[30%] sm:w-[10%] flex justify-center items-center font-bold rounded-md text-white">
                 <Link to="/" className="text-xl sm:text-2xl text-center">Micropost</Link>
             </div>
 
 
 
 
-            <div className="w-[50%] sm:w-[15%] h-[60%] flex justify-between items-center">
+            <div className="w-[30%] sm:w-[14%] h-[60%] flex justify-between items-center">
 
-                <div className="text-2xl text-slate-900 dark:text-white cursor-pointer" onClick={handleLightDarkMode}>
-                    {isDark ? <MdLightMode /> : <MdDarkMode />}
+                <div className="text-2xl text-white cursor-pointer" onClick={handleLightDarkMode}>
+                    {
+                        isDark ? <MdLightMode /> : <MdDarkMode />
+                    }
                 </div>
 
 
-                <div className={`text-2xl text-slate-900 dark:text-white cursor-pointer`} onClick={handleMenu}>
+                <div className={`text-2xl text-white cursor-pointer`} onClick={handleMenu}>
                     {
                         isMenuOpen ? (<FaWindowClose />) : (<TfiMenu />)
                     }

@@ -48,16 +48,15 @@ const generateOTPEmailTemplate = (otp) => `
 
     <div class="container">
 
-        <h2>Micropost Verification</h2>
+        <h2>OTP</h2>
 
         <div class="otp-box">
             <strong>${otp}</strong>
         </div>
-
+    
         <p>Please use this OTP to complete the verification process.</p>
-
-
-        <p>Best regards,<br>Micropost Team</p>
+    
+        <p>Best regards,<br><br>Micropost Team</p>
 
     </div>
 

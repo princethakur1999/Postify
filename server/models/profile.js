@@ -15,22 +15,18 @@ const profileSchema = new mongoose.Schema(
             type: Number,
             trim: true
         },
-        age: {
-            type: Number,
-            trim: true
+        joinedOn: {
+            type: Date,
         },
         gender: {
             type: String,
-            enum: ["male", "female", "other"],
+            enum: ["male", "female", "others"],
             lowercase: true
         },
-        bio: {
+        describeYourselfInOneWord: {
             type: String,
             trim: true,
             maxlength: 20
-        },
-        country: {
-            type: String,
         }
     },
     {

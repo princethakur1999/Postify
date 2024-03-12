@@ -36,7 +36,7 @@ export default function Menu() {
 
     return (
 
-        <div className="h-[100vh] w-[60vw] md:w-[12vw] bg-blue-800 flex flex-col justify-center items-center gap-6 shadow-md fixed right-0 top-0 bottom-0 -z-40">
+        <div className="h-[100vh] w-[60vw] md:w-[12vw] bg-4 flex flex-col justify-center items-center gap-6 fixed right-0 top-0 bottom-0 -z-40">
 
 
             {
@@ -46,31 +46,37 @@ export default function Menu() {
                         <FaHome />
                     </Link>
 
-                    <Link to="/search" className="text-white text-2xl">
+
+                    <Link to="/search" className="text-white  text-2xl">
                         <FaSearch />
                     </Link>
+
 
                     <Link to="/profile" className="text-white text-2xl">
                         <FaUser />
                     </Link>
 
-                    <Link to="/message" className="text-white text-2xl">
+
+                    <Link to="/message" className="text-white  text-2xl">
                         <FaMessage />
                     </Link>
 
-                    <Link to="/notifications" className="text-white text-2xl">
+
+                    <Link to="/notifications" className="text-white e text-2xl">
                         <IoIosNotifications />
                     </Link>
 
-                    <Link to="/activity" className="text-white text-2xl">
+
+                    <Link to="/activities" className="text-white  text-2xl">
                         <LuActivity />
                     </Link>
 
-                    <p className="text-white text-2xl cursor-pointer" onClick={logoutHandler}>
+
+                    <p className="text-white  text-2xl cursor-pointer" onClick={logoutHandler}>
                         <FaPowerOff />
                     </p>
 
-                    <Link to="/setting" className="text-white text-2xl">
+                    <Link to="/setting" className="text-white  text-2xl">
                         <IoSettingsSharp />
                     </Link>
                 </>
@@ -79,11 +85,11 @@ export default function Menu() {
             {
                 !token &&
                 <>
-                    <Link to="/signup" className="w-[60%] text-center text-blue-800 font-bold text-md bg-white rounded-full px-2">
+                    <Link to="/signup" className="w-[60%] text-center text-blue-800 font-bold text-md bg-3 rounded-full px-2">
                         Signup
                     </Link>
 
-                    <Link to="/login" className="w-[60%] text-center text-blue-800 font-bold text-md bg-white rounded-full px-2">
+                    <Link to="/login" className="w-[60%] text-center text-blue-800 font-bold text-md bg-3 rounded-full px-2">
                         Login
                     </Link>
                 </>
