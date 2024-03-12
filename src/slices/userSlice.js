@@ -6,16 +6,12 @@ export const userSlice = createSlice({
 
     initialState: {
 
-        isLoading: false,
         isFetching: false,
         token: localStorage.getItem("token") ? localStorage.getItem("token") : null,
         userDetails: null
     },
 
     reducers: {
-        setIsLoading: (state, action) => {
-            state.isLoading = action.payload;
-        },
         setIsFetching: (state, action) => {
             state.isFetching = action.payload;
         },
@@ -28,6 +24,6 @@ export const userSlice = createSlice({
     }
 });
 
-export const { setIsLoading, setIsFetching, setToken, setUserDetails } = userSlice.actions;
+export const { setIsFetching, setToken, setUserDetails } = userSlice.actions;
 
 export default userSlice.reducer;

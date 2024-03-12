@@ -63,18 +63,28 @@ export default function generateSignupEmail(firstname, userid, password) {
                 <div class="company-name">Micropost</div>
 
                 <div class="success-message">
+
                     <p>Congratulations, ${firstname}!</p>
-                    <p>You've successfully signed up.</p>
+
+                    <p>Your account has been created.</p>
+                    
                 </div>
                 
                 <div class="details">
-                    <p>Your userid is <strong>${userid}</strong> and your password is <strong>${password}</strong>.</p>
+
+                    <p><strong>${userid}</strong></p>
+                    <p><strong>${password}</strong></p>
+
                 </div>
                 
                 <p>Thank you for joining our platform.</p>
 
                 <div class="footer">
-                    <p>© 2024 Micropost. All rights reserved.</p>
+
+                    <p>© 2024 Micropost.</p>
+
+                    <p>All rights reserved.</p>
+
                 </div>
             </div>
         </body>

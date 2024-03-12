@@ -53,6 +53,8 @@ export async function otpHandler(req, res) {
 
     }
 }
+
+
 export async function signupHandler(req, res) {
 
     try {
@@ -98,16 +100,17 @@ export async function signupHandler(req, res) {
 
         const hashedPassword = await bcrypt.hash(password, 12);
 
+
         const sampleProfile = new Profile({
 
             profilePic: 'https://img.freepik.com/free-icon/user_318-749758.jpg',
             coverPhoto: 'https://www.ll-mm.com/images/placeholders/image-placeholder.jpg',
             phoneNumber: 1234567890,
-            age: 18,
-            gender: 'male',
-            bio: 'Write something...',
-            country: 'India',
+            joinedOn: new Date(),
+            gender: 'others',
+            describeYourselfInOneWord: "Human"
         });
+
 
         const savedSampleProfile = await sampleProfile.save();
 
@@ -126,7 +129,7 @@ export async function signupHandler(req, res) {
 
         const body = generateSignupEmail(firstname, userid, password);
 
-        await sendEmail(email, 'Account Created', body);
+        await sendEmail(email, 'Micropost', body);
 
         return res.status(201).json({
 
@@ -208,5 +211,58 @@ export async function loginHandler(req, res) {
             success: false,
             message: 'Server Error!'
         });
+    }
+}
+
+
+export async function editProfile(req, res) {
+
+    try {
+
+        const { id } = req.params;
+
+
+        const { firstname, lastname, email, userid, phoneNumber, gender, describeYourselfInOneWord } = req.body;
+
+        const user = await User.findOne({ userid: id }).select('-password').populate("profile");
+
+        const profile = await Profile.findOne({ _id: user.profile });
+
+
+        user.firstname = firstname || user.firstname;
+        user.lastname = lastname || user.lastname;
+        user.email = email || user.email;
+        user.userid = userid || user.userid;
+        profile.phoneNumber = phoneNumber || profile.phoneNumber;
+        profile.gender = gender || profile.gender;
+        profile.describeYourselfInOneWord = describeYourselfInOneWord || profile.describeYourselfInOneWord;
+
+
+        await profile.save();
+
+        const result = await user.save();
+
+        console.log(result);
+
+        return res.status(200).json({
+
+            success: true,
+            message: "Updaeted Successfully.",
+            userid: result.userid
+        });
+
+
+
+
+    } catch (e) {
+
+        console.log(e);
+
+        return res.status(400).json({
+
+            success: false,
+            message: "Server error!"
+        })
+
     }
 }

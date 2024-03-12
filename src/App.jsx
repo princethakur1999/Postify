@@ -8,9 +8,10 @@ import Header from './components/Header';
 import Home from './pages/Home';
 import Search from './pages/Search';
 import Profile from './pages/Profile';
+import About from './pages/About';
 import Message from './pages/Message';
 import Notifications from './pages/Notifications';
-import Activity from './pages/Activity';
+import Activities from './pages/Activities';
 import Setting from './pages/Setting';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
@@ -56,7 +57,7 @@ export default function App() {
       {
         !isLoading &&
         (
-          <div className='h-screen w-[100vw] bg-white dark:bg-slate-900 flex flex-col justify-start items-center overflow-x-hidden overflow-y-auto relative pt-28'>
+          <div className='h-screen w-[100vw] bg-white dark:bg-slate-950 flex flex-col justify-start items-center overflow-x-hidden overflow-y-auto relative'>
 
             <Header />
 
@@ -67,11 +68,13 @@ export default function App() {
 
               <Route path="/profile" element={<Protected ><Profile /></Protected>} />
 
+              <Route path="/about" element={<Protected ><About /></Protected>} />
+
               <Route path="/message" element={<Protected ><Message /></Protected>} />
 
               <Route path="/notifications" element={<Protected ><Notifications /></Protected>} />
 
-              <Route path="/activity" element={<Protected ><Activity /></Protected>} />
+              <Route path="/activities" element={<Protected ><Activities /></Protected>} />
 
               <Route path="/setting" element={<Protected ><Setting /></Protected>} />
 

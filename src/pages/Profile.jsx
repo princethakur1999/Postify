@@ -1,6 +1,7 @@
 import { FaCamera } from "react-icons/fa";
-import { FaUserEdit } from "react-icons/fa";
 import { IoMdAddCircle } from "react-icons/io";
+
+import { Link } from "react-router-dom";
 
 import Post from './../components/Post';
 import AddPost from "../components/AddPost";
@@ -13,11 +14,12 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import axios from "axios";
 
+const BASE_URL = import.meta.env.VITE_REACT_APP_API_URL;
+
 export default function Profile() {
 
 
     const [update, setUpdate] = useState(false);
-
 
 
     const [isCoverPhotoChangerOpen, setIsCoverPhotoChangerOpen] = useState(false);
@@ -68,7 +70,7 @@ export default function Profile() {
 
             const userid = localStorage.getItem("userid");
 
-            const response = await axios.post(`http://localhost:4000/update-cover-photo/${userid}`, formData)
+            const response = await axios.post(`${BASE_URL}/update-cover-photo/${userid}`, formData)
 
             if (!response.data.success) {
 
@@ -118,7 +120,7 @@ export default function Profile() {
 
             const userid = localStorage.getItem("userid");
 
-            const response = await axios.post(`http://localhost:4000/update-profile-pic/${userid}`, formData)
+            const response = await axios.post(`${BASE_URL}/update-profile-pic/${userid}`, formData)
 
             if (!response.data.success) {
 
@@ -155,7 +157,7 @@ export default function Profile() {
 
             const userid = localStorage.getItem("userid");
 
-            const response = await axios.get(`http://localhost:4000/profile/${userid}`);
+            const response = await axios.get(`${BASE_URL}/profile/${userid}`);
 
             if (!response.data.success) {
 
@@ -183,25 +185,30 @@ export default function Profile() {
 
     return (
 
-        <div className="w-[98%] sm:w-[60%] flex flex-col justify-start items-center gap-6">
+        <div className="w-[98%] sm:w-[60%] flex flex-col justify-start items-center gap-6 pt-24">
 
             {
                 isCoverPhotoChangerOpen &&
                 <div className="h-[100vh] w-[100vw] flex justify-center items-center bg-white dark:bg-slate-900 z-50 fixed top-0 bottom-0 left-0 right-0">
 
-                    <form className="min-h-[220px] max-h-max w-[320px] relative pt-8 bg-blue-800 rounded-md flex flex-col justify-around items-center gap-8 p-2">
 
-                        <span className="absolute text-2xl text-white top-2 right-2" onClick={closeCoverPhotoChanger}>
+                    <form className="min-h-[300px] max-h-max w-[320px] sm:w-[360px] relative pt-8 bg-3 rounded-md flex flex-col justify-around items-center gap-8 px-4 py-4 border">
+
+                        <span className="absolute text-2xl text-blue-800 top-2 right-2" onClick={closeCoverPhotoChanger}>
                             <FaWindowClose />
                         </span>
 
+                        <h2 className="w-full text-center font-bold text-xl text-blue-800">
+                            New cover photo
+                        </h2>
+
                         <label
                             htmlFor="coverPhoto"
-                            className="w-full cursor-pointer mt-4"
+                            className="w-full cursor-pointer"
                         >
 
-                            <span className="flex justify-center items-center gap-2 bg-white w-full rounded-md">
-                                <FaImage className="text-4xl" />
+                            <span className="flex justify-center items-center gap-2 bg-blue-800 w-full rounded-md">
+                                <FaImage className="text-4xl text-white" />
                             </span>
 
                             <input
@@ -222,30 +229,35 @@ export default function Profile() {
                             />
                         }
 
-                        <button onClick={updateCoverPhoto} className="bg-white px-4 py1 text-slate-900 font-bold text-center rounded-md">
+                        <button onClick={updateCoverPhoto} className="bg-blue-800 px-4 py-1 text-white font-bold text-center rounded-md">
                             Update
                         </button>
                     </form>
                 </div>
             }
 
+
             {
                 isProfilePicChangerOpen &&
                 <div className="h-[100vh] w-[100vw] flex justify-center items-center bg-white dark:bg-slate-900 z-50 fixed top-0 bottom-0 left-0 right-0">
 
-                    <form className="min-h-[220px] max-h-max w-[320px] relative pt-8 bg-blue-800 rounded-md flex flex-col justify-around items-center gap-8 p-2">
+                    <form className="min-h-[300px] max-h-max w-[320px] sm:w-[360px] relative pt-8 bg-3 rounded-md flex flex-col justify-around items-center gap-8 px-4 py-4 border">
 
-                        <span className="absolute text-2xl text-white top-2 right-2" onClick={closeProfielPicChanger}>
+                        <span className="absolute text-2xl text-blue-800 top-2 right-2" onClick={closeProfielPicChanger}>
                             <FaWindowClose />
                         </span>
 
+                        <h2 className="w-full text-center font-bold text-xl text-blue-800">
+                            New profile picture
+                        </h2>
+
                         <label
                             htmlFor="profilePic"
-                            className="w-full cursor-pointer mt-4"
+                            className="w-full cursor-pointer mt-4 bg-blue-800 rounded-md"
                         >
 
-                            <span className="flex justify-center items-center gap-2 bg-white w-full rounded-md">
-                                <FaImage className="text-4xl" />
+                            <span className="flex justify-center items-center gap-2 bg-blue w-full rounded-md">
+                                <FaImage className="text-4xl text-white" />
                             </span>
 
                             <input
@@ -266,12 +278,14 @@ export default function Profile() {
                             />
                         }
 
-                        <button onClick={updateProfilePic} className="bg-white px-4 py1 text-slate-900 font-bold text-center rounded-md">
+                        <button onClick={updateProfilePic} className="bg-blue-800 px-4 py-1 text-white font-bold text-center rounded-md">
                             Update
                         </button>
                     </form>
                 </div>
             }
+
+
 
             <section className="w-[100%] mb-8">
 
@@ -279,15 +293,17 @@ export default function Profile() {
 
                     <img className="w-[100%] h-[150px] sm:h-[300px]" src={(profileDetails.profile?.coverPhoto ? profileDetails.profile.coverPhoto : 'https://www.ll-mm.com/images/placeholders/image-placeholder.jpg')} alt="coverPhoto" />
 
-                    <p onClick={() => setIsCoverPhotoChangerOpen(!isCoverPhotoChangerOpen)} className="absolute top-4 right-4 text-2xl sm:text-4xl text-blue-800 cursor-pointer" title="Add cover photo">
-                        < FaCamera className="bg-white p-1" />
+
+                    <p onClick={() => setIsCoverPhotoChangerOpen(!isCoverPhotoChangerOpen)} className="absolute top-4 right-4 text-2xl sm:text-4xl text-white cursor-pointer" title="Add cover photo">
+                        < FaCamera className="bg-4 p-1" />
                     </p>
 
-                    <div className="h-[80px] w-[80px] sm:h-[160px] sm:w-[160px]  rounded-full absolute left-1/2 transform -translate-x-1/2 -bottom-1/4 border-4 border-slate-900">
+
+                    <div className="h-[80px] w-[80px] sm:h-[160px] sm:w-[160px]  rounded-full absolute left-1/2 transform -translate-x-1/2 -bottom-1/4 border-4 border-blue-800">
 
                         <img className="h-[100%] w-[100%] rounded-full object-cover" src={(profileDetails.profile?.profilePic ? profileDetails.profile.profilePic : 'https://img.freepik.com/free-icon/user_318-749758.jpg')} alt="profilePic" />
 
-                        <p onClick={() => setIsProfilePicChangerOpen(!isProfilePicChangerOpen)} className="text-sm sm:text-2xl absolute sm:-right-[6px] sm:bottom-[22px] -right-[2px] bottom-[10px] font-bold rounded-full bg-slate-900 text-white p-1 cursor-pointer" title="Add profile photo">
+                        <p onClick={() => setIsProfilePicChangerOpen(!isProfilePicChangerOpen)} className="text-sm sm:text-2xl absolute sm:-right-[6px] sm:bottom-[22px] -right-[10px] bottom-[10px] font-bold rounded-full bg-4 text-white p-1 cursor-pointer" title="Add profile photo">
                             < IoMdAddCircle />
                         </p>
                     </div>
@@ -300,21 +316,35 @@ export default function Profile() {
             </section >
 
 
-            <section className="w-[100%] flex justify-between items-center gap-8 border-b py-2 mt-8">
+            <section className="w-[100%] flex flex-col justify-between text-slate-900 font-bold dark:text-white  items-center gap-8 border-b mt-8 pb-4">
 
-                <p className="text-slate-900 dark:text-white text-sm sm:text-xl flex gap-2 justify-center items-center">
+                <p className="text-xl w-full text-center">
+                    {
+                        profileDetails.profile?.describeYourselfInOneWord
+                    }
+                </p>
+                <p className="text-2xl w-full text-center">
+                    {
+                        profileDetails?.firstname + " " + profileDetails?.lastname
+                    }
+                </p>
+            </section>
+
+
+            <section className="w-[100%] flex justify-between items-center gap-8 my-2">
+
+                <p className="text-slate-600 cursor-pointer dark:text-white font-semibold text-sm sm:text-xl flex gap-2 justify-center items-center">
                     <span className="w-full text-center">{profileDetails.followers?.length}</span>
                     <span>Followers</span>
                 </p>
 
 
-                <button className="flex justify-evenly p-1 items-center gap-2 w-[75px] font-bold bg-blue-800 text-white dark:bg-white dark:text-slate-900 rounded-md">
-                    <p>Edit</p>
-                    <FaUserEdit />
-                </button>
+                <Link to="/about" className="flex justify-evenly p-1 items-center gap-2 w-[75px] font-bold bg-4 text-white rounded-md">
+                    <p>About</p>
+                </Link>
 
 
-                <p className="text-slate-900 dark:text-white text-sm sm:text-xl flex gap-2 justify-center items-center">
+                <p className="text-slate-600 cursor-pointer dark:text-white font-semibold  text-sm sm:text-xl flex gap-2 justify-center items-center">
                     <span className="w-full text-center">{profileDetails.following?.length}</span>
                     <span>Following</span>
                 </p>
@@ -324,14 +354,9 @@ export default function Profile() {
 
 
             <section className="w-[100%] grid grid-cols-1 justify-items-center gap-y-16 gap-x-4 py-4">
-                <Post />
-                <Post />
-                <Post />
-                <Post />
-                <Post />
-                <Post />
-                <Post />
-                <Post />
+                {
+                    profileDetails.posts?.map((post) => <Post post={post} userid={profileDetails.userid} profilePic={profileDetails.profile.profilePic} key={post._id} />)
+                }
             </section>
 
         </div >

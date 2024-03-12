@@ -1,5 +1,6 @@
 import User from '../models/user.js';
 import Profile from '../models/profile.js';
+import Post from '../models/post.js';
 
 import { v2 as cloudinary } from 'cloudinary';
 
@@ -7,7 +8,10 @@ export async function getAllUsers(req, res) {
 
     try {
 
-        const users = await User.find().sort({ createdAt: -1 }).populate("profile").exec();
+
+        const { userid } = req.params;
+
+        const users = await User.find().select("-password").sort({ createdAt: -1 }).populate('profile').exec();
 
         console.log(users);
 
@@ -20,11 +24,16 @@ export async function getAllUsers(req, res) {
             });
         }
 
+        const filteredUsers = users.filter((user) => user.userid !== userid);
+
+
+        console.log(filteredUsers);
+
         res.status(200).json({
 
             success: true,
             message: "User list retrieved successfully",
-            users
+            users: filteredUsers
         });
 
     } catch (e) {
@@ -38,6 +47,7 @@ export async function getAllUsers(req, res) {
         });
     }
 }
+
 export async function searchById(req, res) {
 
     try {
@@ -85,7 +95,59 @@ export async function searchById(req, res) {
     }
 }
 
+export async function getProfileDetails(req, res) {
 
+    try {
+
+        const { userid } = req.params;
+
+
+        if (!userid) {
+
+            return res.status(400).json({
+                success: false,
+                message: "User ID is required!"
+            });
+        }
+
+
+        const user = await User.findOne({ userid: userid }).select("-password").populate("profile").populate({ path: "posts", populate: { path: "comments", populate: { path: "user", model: "User", select: "userid", populate: { path: "profile", model: "Profile" } } } }).exec();
+
+
+        user.posts.sort((a, b) => b.createdAt - a.createdAt);
+
+
+        console.log(user);
+
+        if (!user) {
+
+            return res.status(404).json({
+
+                success: false,
+                message: "No such user found."
+            })
+        }
+
+        return res.status(200).json({
+
+            success: true,
+            message: "Successfully fetched the profile details.",
+            user: user
+        });
+
+
+    } catch (e) {
+
+        console.error('Error getting profile details: ', e);
+
+        return res.status(500).json({
+
+            success: false,
+            message: 'Server error'
+        });
+    }
+
+}
 
 export async function updateCoverPhoto(req, res) {
 
@@ -153,8 +215,6 @@ export async function updateCoverPhoto(req, res) {
         });
     }
 }
-
-
 
 export async function updateProfilePic(req, res) {
 
@@ -224,9 +284,188 @@ export async function updateProfilePic(req, res) {
 }
 
 
+export async function checkUserid(req, res) {
+
+    try {
+
+        const { userid } = req.params;
+
+        console.log(userid);
+
+        if (!userid) {
+
+            return res.status(400), json({
+
+                success: false,
+                message: "No User ID provided!"
+            });
+        }
+
+        const user = await User.findOne({ userid: userid });
+
+        if (user) {
+
+            return res.status(400).json({
+
+                success: false,
+                message: 'Unavaiable UserID.'
+            })
+        }
+
+        return res.status(201).json({
+
+            success: true,
+            message: 'Avaliable UserID.',
+        })
 
 
-export async function getProfileDetails(req, res) {
+    } catch (e) {
+
+        console.log(e);
+
+        return res.status(501).json({
+
+            success: false,
+            message: "Server error!"
+        })
+    }
+}
+
+
+export async function createPost(req, res) {
+
+    try {
+
+        const { post } = req.files;
+
+        const { userid } = req.params;
+
+        console.log(post);
+
+        if (!post || !userid) {
+
+            return res.status(400).json({
+
+                success: false,
+                message: "Missing fields!"
+            });
+        }
+
+        const user = await User.findOne({ userid: userid });
+
+        if (!user) {
+
+            return res.status(400).json({
+
+                success: false,
+                message: "User not found."
+            });
+        }
+
+        const option = {
+
+            folder: "Micropost"
+        }
+
+        const cloudinaryResponse = await cloudinary.uploader.upload(post.tempFilePath, option);
+
+
+        const newPost = new Post({
+
+            poster: userid,
+            image: cloudinaryResponse.secure_url
+        });
+
+        const savedPost = await newPost.save();
+
+
+
+        console.log(savedPost);
+
+
+        if (!savedPost) {
+
+            return res.status(400).json({
+
+                success: false,
+                message: "Image upload failed."
+            })
+        }
+
+        const postIdSaved = await User.findByIdAndUpdate(user._id, { $push: { posts: savedPost._id } }, { new: true });
+
+        console.log(postIdSaved);
+
+        if (!postIdSaved) {
+
+            return res.status(400).json({
+                success: false,
+                message: "User not found."
+            })
+        }
+
+        return res.status(200).json({
+
+            success: true,
+            message: 'Uploaded!',
+        });
+
+    } catch (e) {
+
+        console.log(e);
+
+        return res.status(500).json({
+
+            success: false,
+            message: "Server error!"
+        })
+
+    }
+}
+
+
+
+export async function getNotifications(req, res) {
+
+    try {
+
+        const { userid } = req.params;
+
+        if (!userid) {
+
+            return res.status(400).json({
+
+                success: false,
+                message: 'User ID is required!'
+            });
+        }
+
+        const user = await User.findOne({ userid: userid }).populate({ path: "notifications", populate: { path: "post" } }).exec();
+
+        console.log(user.notifications);
+
+
+        return res.status(200).json({
+
+            success: true,
+            message: "Get notifications successfully!",
+            notifications: user.notifications
+        });
+
+
+    } catch (e) {
+
+        console.log(e);
+
+        return res.status(500).json({
+            success: false,
+            message: "Server error!"
+        })
+    }
+}
+
+
+export async function getActivities(req, res) {
 
     try {
 
@@ -236,47 +475,36 @@ export async function getProfileDetails(req, res) {
         if (!userid) {
 
             return res.status(400).json({
+
                 success: false,
-                message: "User ID is required!"
+                message: "User id is required!"
             });
         }
 
+        const user = await User.findOne({ userid: userid }).select("-password").populate({ path: "activities", populate: { path: "post" } }).exec();
 
-        const user = await User.findOne({ userid: userid }).select("-password").populate("profile").exec();
 
         console.log(user);
 
-        if (!user) {
-
-            return res.status(404).json({
-
-                success: false,
-                message: "No such user found."
-            })
-        }
 
         return res.status(200).json({
 
             success: true,
-            message: "Successfully fetched the profile details.",
-            user: user
+            message: "Successfully fetched activities!",
+            activities: user.activities
         });
+
 
 
     } catch (e) {
 
-        console.error('Error getting profile details: ', e);
+        console.log(e);
 
         return res.status(500).json({
 
             success: false,
-            message: 'Server error'
-        });
+            message: "Server error!"
+        })
+
     }
-
 }
-
-
-
-
-
