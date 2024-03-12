@@ -1,9 +1,10 @@
+import { format } from 'date-fns';
 
 export default function Notification({ notification }) {
 
     return (
 
-        <div className="w-[98%] flex flex-col justify-between items-start gap-2 bg-4 p-2 rounded-md">
+        <div className="w-[98%] flex flex-col justify-between items-stretch gap-1 bg-blue-800 px-2 py-1 rounded-md">
 
 
             <div className="flex gap-4 justify-between items-center p-1">
@@ -16,7 +17,7 @@ export default function Notification({ notification }) {
 
                 <p className="text-white font-bold w-full text-right">
                     {
-                        new Date(notification.createdAt).toLocaleString()
+                        format(new Date(notification?.createdAt), 'dd/MM/yyyy')
                     }
                 </p>
             </div>
@@ -27,7 +28,7 @@ export default function Notification({ notification }) {
                     {notification.text}
                 </span>
 
-                <img className="h-[100px] w-[100px] rounded-sm" src={notification.post.image} alt="post" />
+                <img className="h-[100px] w-[100px] rounded-md" src={notification.post.image} alt="post" />
             </p>
 
 

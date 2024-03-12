@@ -46,7 +46,7 @@ export default function Activities() {
 
     return (
 
-        <div className="w-[98%] sm:w-[60%] max-h-max flex flex-col justify-between items-center gap-8 mt-24">
+        <div className="w-[98%] sm:w-[60%] max-h-max flex flex-col justify-between items-center gap-8 mt-24 mb-8">
 
             <h2 className="w-full font-bold text-right border-b text-blue-800 text-xl pb-2 dark:text-white">
                 Activities
