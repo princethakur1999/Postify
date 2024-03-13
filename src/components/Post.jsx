@@ -23,6 +23,12 @@ export default function Post({ post, userid, profilePic }) {
     const [isCommentBoxOpen, setIsCommentBoxOpen] = useState(false);
 
 
+    const [likesCount, setLikesCount] = useState(post.likes?.length || 0);
+    const [commentsCount, setCommentsCount] = useState(post.comments?.length || 0);
+    const [postComments, setPostComments] = useState(post.comments);
+
+
+
     const [comment, setComment] = useState(null);
 
 
@@ -42,8 +48,7 @@ export default function Post({ post, userid, profilePic }) {
 
             toast.success(response.data.message);
 
-
-            window.location.reload();
+            setLikesCount((prevLikes) => prevLikes + (response.data.message === "Liked" ? 1 : -1));
 
 
         } catch (e) {
@@ -66,11 +71,15 @@ export default function Post({ post, userid, profilePic }) {
                 throw new Error("Server error");
             }
 
-            setComment(null);
+            setComment('');
+
+            console.log(response.data.comments);
 
             toast.success(response.data.message);
 
-            window.location.reload();
+            setCommentsCount((prevComments) => prevComments + 1);
+
+            setPostComments(response.data.comments);
 
 
         } catch (e) {
@@ -122,11 +131,11 @@ export default function Post({ post, userid, profilePic }) {
             <div className="w-[100%] flex justify-between py-2 border-t">
 
                 <p className="text-white text-xl cursor-pointer">
-                    {post.likes?.length}
+                    {likesCount}
                 </p>
 
                 <p className="text-white text-xl cursor-pointer">
-                    {post.comments?.length}
+                    {commentsCount}
                 </p>
             </div>
 
@@ -196,7 +205,7 @@ export default function Post({ post, userid, profilePic }) {
 
                         <div className="flex flex-col gap-2">
                             {
-                                post.comments?.map((comment) => <Comment comment={comment} />)
+                                postComments?.map((comment) => <Comment comment={comment} key={comment._id} />)
                             }
                         </div>
 
@@ -208,6 +217,7 @@ export default function Post({ post, userid, profilePic }) {
                             className="w-[100%] bg-3 p-2 focus-within:outline-none text-slate-600"
                             type="text"
                             placeholder="Type......"
+                            value={comment}
                             onChange={(e) => setComment(e.target.value)}
                         />
 

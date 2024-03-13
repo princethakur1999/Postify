@@ -2,82 +2,87 @@ import { BiSolidLike } from "react-icons/bi";
 import { FaCommentAlt } from "react-icons/fa";
 import { FaWindowClose } from "react-icons/fa";
 import { IoSend } from "react-icons/io5";
-
-
-import { useState } from "react";
-
+import { useState, useEffect } from "react";
 import Comment from "./Comment";
 import axios from "axios";
 import toast from "react-hot-toast";
-
 import { format } from 'date-fns';
 
 const BASE_URL = import.meta.env.VITE_REACT_APP_API_URL;
 
+
 export default function FollowingsPost({ post }) {
 
-
     const [isCommentBoxOpen, setIsCommentBoxOpen] = useState(false);
-
-    const [comment, setComment] = useState(null);
-
+    const [comment, setComment] = useState('');
+    const [likesCount, setLikesCount] = useState(post.likes?.length || 0);
+    const [commentsCount, setCommentsCount] = useState(post.comments?.length || 0);
+    const [postComments, setPostComments] = useState(post.comments);
     const userid = localStorage.getItem("userid");
 
-
-
-    async function addLikeToThisPost(postid) {
+    const addLikeToThisPost = async (postid) => {
 
         try {
 
             const response = await axios.post(`${BASE_URL}/like/${postid}/${userid}`);
 
-
             if (!response.data.success) {
 
-                throw new Error("Server error");
+                throw new Error(response.data.message || "Server error");
             }
-
 
             toast.success(response.data.message);
 
+            setLikesCount((prevLikes) => prevLikes + (response.data.message === "Liked" ? 1 : -1));
 
-            window.location.reload();
+        } catch (error) {
 
+            console.error(error);
 
-        } catch (e) {
-
-            console.log(e);
-
-            toast.error(e.response.data.message);
+            toast.error(error.message || "An error occurred");
         }
+    };
+
+    const handlerComment = (e) => {
+
+        setComment(e.target.value);
     }
 
-    async function addCommentToThisPost(e) {
+    const addCommentToThisPost = async (e) => {
+
+        e.preventDefault();
 
         try {
-            e.preventDefault();
+
+            if (!comment.trim()) {
+                return;
+            }
 
             const response = await axios.post(`${BASE_URL}/comment/${post._id}/${comment}/${userid}`);
 
             if (!response.data.success) {
 
-                throw new Error("Server error");
+                throw new Error(response.data.message || "Server error");
             }
 
-            setComment(null);
+            setComment('');
+
+            console.log(response.data.comments);
 
             toast.success(response.data.message);
 
-            window.location.reload();
+            setCommentsCount((prevComments) => prevComments + 1);
+
+            setPostComments(response.data.comments);
 
 
-        } catch (e) {
+        } catch (error) {
 
-            console.log(e);
+            console.error(error);
 
-            toast.error(e.response.data.message);
+            toast.error(error.message || "An error occurred");
         }
-    }
+    };
 
     return (
 
@@ -114,26 +119,20 @@ export default function FollowingsPost({ post }) {
 
 
             <div className="w-[100%] flex justify-between py-2 border-t">
-
-                <p className="text-white text-xl cursor-pointer">
-                    {post.likes?.length}
-                </p>
-
-                <p className="text-white  text-xl cursor-pointer">
-                    {post.comments?.length}
-                </p>
+                <p className="text-white text-xl cursor-pointer">{likesCount}</p>
+                <p className="text-white  text-xl cursor-pointer">{commentsCount}</p>
             </div>
-
 
             <div className="w-[100%] flex justify-between py-2">
 
-                <p onClick={() => addLikeToThisPost(post._id)} className="text-white text-3xl cursor-pointer dark:hover:text-blue-800 hover:text-blue-800">
+                <p onClick={() => addLikeToThisPost(post._id)} className="text-3xl cursor-pointer text-white hover:scale-125 transition ease-in-out">
                     <BiSolidLike />
                 </p>
 
                 <p className="text-white  text-2xl cursor-pointer" onClick={() => setIsCommentBoxOpen(!isCommentBoxOpen)}>
                     <FaCommentAlt />
                 </p>
+
             </div>
 
 
@@ -189,7 +188,7 @@ export default function FollowingsPost({ post }) {
 
                         <div className="flex flex-col gap-2">
                             {
-                                post.comments?.map((comment) => <Comment comment={comment} />)
+                                postComments?.map((comment) => <Comment comment={comment} key={comment._id} />)
                             }
                         </div>
 
@@ -201,7 +200,10 @@ export default function FollowingsPost({ post }) {
                             className="bg-3 w-[100%] p-2 focus-within:outline-none text-slate-600"
                             type="text"
                             placeholder="Type......"
-                            onChange={(e) => setComment(e.target.value)}
+                            value={comment}
+                            onChange={handlerComment}
+                            onKeyDown={(e) => e.key === 'Enter' && addCommentToThisPost(e)}
+
                         />
 
                         <button onClick={addCommentToThisPost} className="text-2xl text-blue-800">

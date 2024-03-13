@@ -103,6 +103,7 @@ export async function addLike(req, res) {
         await user.save();
 
         return res.status(200).json({
+
             success: true,
             message: 'Liked'
         });
@@ -119,11 +120,8 @@ export async function addLike(req, res) {
     }
 }
 
-
 export async function addComment(req, res) {
-
     try {
-
         const { id, comment, userid } = req.params;
 
         if (!id || !userid || !comment) {
@@ -131,67 +129,55 @@ export async function addComment(req, res) {
             return res.status(400).json({
 
                 success: false,
-                message: 'Missing fields'
+                message: 'Missing fields',
             });
         }
 
         const user = await User.findOne({ userid: userid });
 
         if (!user) {
-
             return res.status(401).json({
-
                 success: false,
-                message: "User not found"
+                message: 'User not found',
             });
         }
-
 
         const post = await Post.findById(id);
 
         if (!post) {
-
             return res.status(401).json({
-
                 success: false,
-                message: "Post not found"
+                message: 'Post not found',
             });
         }
 
-
         const myComment = new Comment({
-
             post: id,
             user: user._id,
-            comment: comment
+            comment: comment,
         });
 
         const savedComment = await myComment.save();
 
         post.comments.push(savedComment._id);
-
         await post.save();
 
-        const poster = await User.findOne({ userid: post.poster }).populate("notifications");
+        const poster = await User.findOne({ userid: post.poster }).populate('notifications');
         const profile = await Profile.findOne({ _id: poster.profile }).exec();
 
         const notification = new Notification({
-
             userid: userid,
             profilePic: profile.profilePic,
-            text: `${poster.firstname == user.firstname ? "You" : user.firstname} commented ${comment} on your post.`,
+            text: `${poster.firstname == user.firstname ? 'You' : user.firstname} commented ${comment} on your post.`,
             post: post,
         });
 
         await notification.save();
 
         poster.notifications.unshift(notification._id);
-
         await poster.save();
 
-
         const activity = new Activity({
-
             posterid: poster.userid,
             text: `You commented ${comment} on this post.`,
             post: post,
@@ -202,24 +188,23 @@ export async function addComment(req, res) {
         await user.save();
 
 
+        const comments = await Comment.find({ post: id }).populate({ path: 'user', select: 'userid', populate: { path: 'profile', select: 'profilePic' } });
+
+        console.log("COMMENTS: ", comments);
+
         return res.status(200).json({
 
             success: true,
-            message: 'Comment added.'
-
+            message: 'Comment added.',
+            comments: comments,
         });
-
 
     } catch (e) {
 
         console.log(e);
-
         return res.status(500).json({
-
             success: false,
-            message: 'Server error'
+            message: 'Server error',
         });
     }
 }
-
-
