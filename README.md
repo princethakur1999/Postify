@@ -65,6 +65,7 @@ Postify is a social media platform with a focus on user engagement, privacy, and
 ## Getting Started
 
 1. **Clone the Repository:**
-   ``
+   
+   ``bash
    git clone https://github.com/princethakur1999/postify.git
    ```
