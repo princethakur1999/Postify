@@ -62,10 +62,11 @@ Postify is a social media platform with a focus on user engagement, privacy, and
 - **cloudinary:** Cloud-based service for managing media assets.
 - **nodemailer:** Module for sending emails in Node.js.
 
+
 ## Getting Started
 
 1. **Clone the Repository:**
    
-   ``bash
+
    git clone https://github.com/princethakur1999/postify.git
-   ```
+ 
