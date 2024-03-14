@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react';
-
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-
 
 import Start from './components/Start';
 import Header from './components/Header';
@@ -25,7 +23,6 @@ export default function App() {
 
   useEffect(() => {
 
-
     const isVisited = sessionStorage.getItem('visited');
 
     if (!isVisited) {
@@ -36,13 +33,12 @@ export default function App() {
 
         sessionStorage.setItem('visited', true);
 
-      }, 5000);
+      }, 3000);
 
     } else {
 
       setIsLoading(false);
     }
-
   }, []);
 
   return (
@@ -57,33 +53,24 @@ export default function App() {
       {
         !isLoading &&
         (
-          <div className='h-screen w-[100vw] bg-white dark:bg-slate-950 flex flex-col justify-start items-center overflow-x-hidden overflow-y-auto relative'>
+          <div className='h-screen w-screen bg-white dark:bg-slate-950 flex flex-col justify-start items-center overflow-x-hidden overflow-y-auto relative'>
 
             <Header />
 
             <Routes>
-              <Route path="/" element={< Protected ><Home /></Protected>} />
-
-              <Route path="/search/" element={<Protected ><Search /></Protected>} />
-
-              <Route path="/profile/" element={<Protected ><Profile /></Protected>} />
-
-              <Route path="/about/" element={<Protected ><About /></Protected>} />
-
-              <Route path="/message/" element={<Protected ><Message /></Protected>} />
-
-              <Route path="/notifications/" element={<Protected ><Notifications /></Protected>} />
-
-              <Route path="/activities/" element={<Protected ><Activities /></Protected>} />
-
-              <Route path="/setting/" element={<Protected ><Setting /></Protected>} />
-
-              <Route path="/signup/" element={<Signup />} />
-
-              <Route path="/login/" element={<Login />} />
-
+              <Route path="/" element={<Protected><Home /></Protected>} />
+              <Route path="/search" element={<Protected><Search /></Protected>} />
+              <Route path="/profile" element={<Protected><Profile /></Protected>} />
+              <Route path="/about" element={<Protected><About /></Protected>} />
+              <Route path="/message" element={<Protected><Message /></Protected>} />
+              <Route path="/notifications" element={<Protected><Notifications /></Protected>} />
+              <Route path="/activities" element={<Protected><Activities /></Protected>} />
+              <Route path="/setting" element={<Protected><Setting /></Protected>} />
+              <Route path="/signup" element={<Signup />} />
+              <Route path="/login" element={<Login />} />
               <Route path="*" element={<Error />} />
             </Routes>
+
           </div>
         )
       }
