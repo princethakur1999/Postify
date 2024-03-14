@@ -1,9 +1,13 @@
 import toast from "react-hot-toast";
 import axios from "axios";
+import { useState } from "react";
 
 const BASE_URL = import.meta.env.VITE_REACT_APP_API_URL;
 
 export default function ReceivedRequestUser({ user }) {
+
+    const [cancelled, setCancelled] = useState(false);
+    const [confirm, setConfirm] = useState(false);
 
 
     async function cancelReceivedRequest(e) {
@@ -23,7 +27,7 @@ export default function ReceivedRequestUser({ user }) {
 
             toast.success(response.data.message);
 
-            window.location.reload();
+            setCancelled(true);
 
         } catch (e) {
 
@@ -52,7 +56,7 @@ export default function ReceivedRequestUser({ user }) {
 
             toast.success(response.data.message);
 
-            window.location.reload();
+            setConfirm(true);
 
         } catch (e) {
 
@@ -72,10 +76,23 @@ export default function ReceivedRequestUser({ user }) {
 
             <p className="text-slate-900">@{user.userid}</p>
 
-            <p onClick={cancelReceivedRequest} className="w-[40%] cursor-pointer text-center font-bold text-sm bg-4 text-white rounded-full py-1">Cancel</p>
+            {
+                confirm || cancelled &&
+                <p className="w-[40%] cursor-pointer text-center font-bold text-sm bg-4 text-white rounded-full py-1">Cancelled</p>
+            }
+            {
+                confirm || !cancelled &&
+                <p onClick={cancelReceivedRequest} className="w-[40%] cursor-pointer text-center font-bold text-sm bg-4 text-white rounded-full py-1">Cancel</p>
+            }
+            {
+                cancelled || !confirm &&
+                <p onClick={confirmRequest} className="w-[40%] cursor-pointer text-center font-bold text-sm bg-4 text-white rounded-full py-1">Accept</p>
+            }
 
-            <p onClick={confirmRequest} className="w-[40%] cursor-pointer text-center font-bold text-sm bg-4 text-white rounded-full py-1">Confirm</p>
-
+            {
+                cancelled || confirm &&
+                <p className="w-[40%] cursor-pointer text-center font-bold text-sm bg-4 text-white rounded-full py-1">Accepted</p>
+            }
         </div>
     )
 }

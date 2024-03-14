@@ -1,13 +1,14 @@
 import toast from "react-hot-toast";
 import axios from "axios";
+import { useState } from "react";
 
 const BASE_URL = import.meta.env.VITE_REACT_APP_API_URL;
 
 export default function User({ user }) {
 
+    const [isSent, setIsSen] = useState(false);
 
     async function sendRequest(e) {
-
 
         try {
 
@@ -23,6 +24,8 @@ export default function User({ user }) {
 
                 throw new Error("Error!");
             }
+
+            setIsSen(true);
 
             toast.success(`Request sent!`);
 
@@ -42,7 +45,7 @@ export default function User({ user }) {
 
             <p className="text-slate-900">@{user.userid}</p>
 
-            <p onClick={sendRequest} className="w-[40%] text-center font-bold text-sm cursor-pointer bg-4 text-white rounded-full py-1">Follow</p>
+            <p onClick={sendRequest} className="w-[40%] text-center font-bold text-sm cursor-pointer bg-4 text-white rounded-full py-1">{isSent ? "Sent" : "Follow"}</p>
 
         </div>
     )

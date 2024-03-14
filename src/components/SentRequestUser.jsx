@@ -1,10 +1,16 @@
 import toast from "react-hot-toast";
 import axios from "axios";
+import { useState } from "react";
 
 const BASE_URL = import.meta.env.VITE_REACT_APP_API_URL;
 
 
 export default function SentRequestUser({ user }) {
+
+
+    const [isCancelled, setIsCancelled] = useState(false);
+
+
 
     async function cancelSentRequest(e) {
 
@@ -23,7 +29,8 @@ export default function SentRequestUser({ user }) {
 
             toast.success("Canceled!");
 
-            window.location.reload();
+
+            setIsCancelled(true);
 
         } catch (e) {
 
@@ -43,7 +50,7 @@ export default function SentRequestUser({ user }) {
 
             <p className="text-slate-900">@{user.userid}</p>
 
-            <p onClick={cancelSentRequest} className="w-[40%] text-center font-bold text-sm cursor-pointer bg-4 text-white rounded-full py-1">Cancel</p>
+            <p onClick={cancelSentRequest} className="w-[40%] text-center font-bold text-sm cursor-pointer bg-4 text-white rounded-full py-1">{isCancelled ? "Cancelled" : "Cancel"}</p>
 
         </div>
     )
