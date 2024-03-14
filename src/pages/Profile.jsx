@@ -13,6 +13,7 @@ import { useEffect, useState } from "react";
 
 import toast from "react-hot-toast";
 import axios from "axios";
+import Processing from '../components/Processing';
 
 const BASE_URL = import.meta.env.VITE_REACT_APP_API_URL;
 
@@ -33,6 +34,8 @@ export default function Profile() {
 
     const [profileDetails, setProfileDetails] = useState({});
 
+    const [processing, setProcessing] = useState(false);
+
 
     function closeCoverPhotoChanger(e) {
 
@@ -51,9 +54,10 @@ export default function Profile() {
 
     async function updateCoverPhoto(e) {
 
-        e.preventDefault();
-
         try {
+            e.preventDefault();
+
+            setProcessing(true);
 
             const maxSizeInBytes = 1 * 1024 * 1024; // 1MB
 
@@ -95,15 +99,19 @@ export default function Profile() {
 
             setIsCoverPhotoChangerOpen(!isCoverPhotoChangerOpen);
 
+            setProcessing(false);
+
         }
 
     }
 
     async function updateProfilePic(e) {
 
-        e.preventDefault();
 
         try {
+            e.preventDefault();
+
+            setProcessing(true);
 
             const maxSizeInBytes = 1 * 1024 * 1024; // 1MB
 
@@ -146,6 +154,7 @@ export default function Profile() {
 
             setIsProfilePicChangerOpen(!isProfilePicChangerOpen);
 
+            setProcessing(false);
         }
 
     }
@@ -229,9 +238,16 @@ export default function Profile() {
                             />
                         }
 
-                        <button onClick={updateCoverPhoto} className="bg-blue-800 px-4 py-1 text-white font-bold text-center rounded-md">
-                            Update
-                        </button>
+                        {
+                            !processing &&
+                            <button onClick={updateCoverPhoto} className="bg-blue-800 px-4 py-1 text-white font-bold text-center rounded-md">
+                                Update
+                            </button>
+                        }
+                        {
+                            processing &&
+                            <Processing />
+                        }
                     </form>
                 </div>
             }
@@ -278,9 +294,17 @@ export default function Profile() {
                             />
                         }
 
-                        <button onClick={updateProfilePic} className="bg-blue-800 px-4 py-1 text-white font-bold text-center rounded-md">
-                            Update
-                        </button>
+                        {
+                            !processing &&
+                            <button onClick={updateProfilePic} className="bg-blue-800 px-4 py-1 text-white font-bold text-center rounded-md">
+                                Update
+                            </button>
+                        }
+
+                        {
+                            processing &&
+                            <Processing />
+                        }
                     </form>
                 </div>
             }

@@ -1,30 +1,29 @@
 import { useState } from "react";
-
 import toast from "react-hot-toast";
 import axios from "axios";
-
-import { useNavigate } from "react-router-dom";
-
 import { FaImage } from "react-icons/fa";
 import { IoSend } from "react-icons/io5";
-
+import { RiUploadCloud2Fill } from "react-icons/ri";
+import { useNavigate } from "react-router-dom";
 
 const BASE_URL = import.meta.env.VITE_REACT_APP_API_URL;
 
-export default function AddPost() {
 
+export default function AddPost() {
 
     const navigate = useNavigate();
 
-
     const [post, setPost] = useState(null);
 
+    const [processing, setProcessing] = useState(false);
 
     async function createPost(e) {
 
         try {
 
             e.preventDefault();
+
+            setProcessing(true);
 
             const formData = new FormData();
 
@@ -41,7 +40,7 @@ export default function AddPost() {
 
             toast.success(response.data.message);
 
-            window.location.reload();
+            navigate('/profile');
 
         } catch (e) {
 
@@ -49,7 +48,13 @@ export default function AddPost() {
 
             toast.error(e.response.data.message);
         }
+        finally {
 
+            setProcessing(false);
+
+            setPost(null);
+
+        }
     }
 
     return (
@@ -77,9 +82,16 @@ export default function AddPost() {
                 </label>
 
                 {
-                    post &&
+                    !processing && post &&
                     <div className="h-[300px] w-[60%] flex justify-center items-center py-8">
                         <img className="h-[100%] w-full object-cover aspect-square rounded-lg" src={URL.createObjectURL(post)} alt="post" />
+                    </div>
+                }
+
+                {
+                    processing &&
+                    <div className="w-[100px] h-auto flex justify-center items-center animate-bounce">
+                        <RiUploadCloud2Fill className="text-blue-800 text-4xl" />
                     </div>
                 }
 

@@ -1,15 +1,12 @@
 import { useState } from "react";
-
 import { useNavigate } from 'react-router-dom';
-
 import axios from "axios";
-
+import toast from "react-hot-toast";
 import { FaEyeSlash } from "react-icons/fa";
 import { FaEye } from "react-icons/fa";
-
 import OtpInput from 'react-otp-input';
 
-import toast from "react-hot-toast";
+import Processing from '../components/Processing';
 
 const BASE_URL = import.meta.env.VITE_REACT_APP_API_URL;
 
@@ -21,6 +18,7 @@ export default function Signup() {
 
     const [otp, setOtp] = useState(false);
 
+    const [processing, setProcessing] = useState(false);
 
     const [isOtpSent, setIsOtpSent] = useState(false);
 
@@ -45,6 +43,8 @@ export default function Signup() {
 
             e.preventDefault();
 
+            setProcessing(true);
+
             const response = await axios.post(`${BASE_URL}/otp/${signupDetails.email}`);
 
 
@@ -65,11 +65,17 @@ export default function Signup() {
 
             console.log("Error in SignUp", e);
         }
+        finally {
+            setProcessing(false);
+        }
     }
+
 
     async function verifyOtp() {
 
         try {
+
+            setProcessing(true);
 
             const formData = new FormData();
 
@@ -98,6 +104,10 @@ export default function Signup() {
             toast.error(e.response.data.message);
 
             console.log(e.message);
+        }
+        finally {
+
+            setProcessing(false);
         }
 
     }
@@ -199,9 +209,17 @@ export default function Signup() {
                             </div>
 
 
-                            <button className="bg-4 w-[100%] cursor-pointer focus-within:outline-none text-lg text-white font-bold text-center rounded-full mt-6 py-1">
-                                Signup
-                            </button>
+                            {
+                                !processing &&
+                                <button className="bg-4 w-[100%] cursor-pointer focus-within:outline-none text-lg text-white font-bold text-center rounded-full mt-6 py-1">
+                                    Signup
+                                </button>
+                            }
+
+                            {
+                                processing &&
+                                <Processing />
+                            }
 
                         </form>
                     )
@@ -227,8 +245,14 @@ export default function Signup() {
                                 Resend OTP
                             </p>
 
-                            <button onClick={verifyOtp} className="bg-4 w-[100%] cursor-pointer focus-within:outline-none text-lg text-white font-bold text-center rounded-full mt-6 py-1">Verify</button>
-
+                            {
+                                !processing &&
+                                <button onClick={verifyOtp} className="bg-4 w-[100%] cursor-pointer focus-within:outline-none text-lg text-white font-bold text-center rounded-full mt-6 py-1">Verify</button>
+                            }
+                            {
+                                processing &&
+                                <Processing />
+                            }
                         </div>
 
 

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import { FaEyeSlash } from "react-icons/fa";
 import { FaEye } from "react-icons/fa";
-
+import Processing from '../components/Processing';
 
 import axios from "axios";
 
@@ -20,6 +20,7 @@ export default function Login() {
 
     const [loginDetails, setLoginDetails] = useState({ userid: "", password: "" });
 
+    const [processing, setProcessing] = useState(false);
 
     function changeHandler(e) {
 
@@ -37,6 +38,8 @@ export default function Login() {
 
             e.preventDefault();
 
+            setProcessing(true);
+
             const response = await axios.post(`${BASE_URL}/login`, loginDetails);
 
             if (!response.data.success) {
@@ -49,7 +52,6 @@ export default function Login() {
             localStorage.setItem("token", response.data.token);
             localStorage.setItem("userid", response.data.userid);
 
-
             toast.success(response.data.message);
 
             navigate('/profile');
@@ -61,6 +63,9 @@ export default function Login() {
             console.log(e.response.data.message);
 
             console.log("DIKKAT HI BHAI!");
+        }
+        finally {
+            setProcessing(false);
         }
     }
 
@@ -111,10 +116,18 @@ export default function Login() {
                 </div>
 
 
-                <button className="bg-4 w-[100%] cursor-pointer focus-within:outline-none text-lg text-white font-bold text-center rounded-full mt-6 py-1">
-                    Login
-                </button>
+                {
+                    !processing &&
+                    <button className="bg-4 w-[100%] cursor-pointer focus-within:outline-none text-lg text-white font-bold text-center rounded-full mt-6 py-1">
+                        Login
+                    </button>
+                }
 
+
+                {
+                    processing &&
+                    <Processing />
+                }
             </form>
         </div>
     )
