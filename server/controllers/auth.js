@@ -129,7 +129,7 @@ export async function signupHandler(req, res) {
 
         const body = generateSignupEmail(firstname, userid, password);
 
-        await sendEmail(email, 'Micropost', body);
+        await sendEmail(email, 'Postify', body);
 
         return res.status(201).json({
 

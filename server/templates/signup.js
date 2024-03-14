@@ -5,7 +5,7 @@ export default function generateSignupEmail(firstname, userid, password) {
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Micropost</title>
+            <title>Postify</title>
             <style>
                 body {
                     font-family: 'Arial', sans-serif;
@@ -60,7 +60,7 @@ export default function generateSignupEmail(firstname, userid, password) {
         </head>
         <body>
             <div class="container">
-                <div class="company-name">Micropost</div>
+                <div class="company-name">Postify</div>
 
                 <div class="success-message">
 
@@ -81,7 +81,7 @@ export default function generateSignupEmail(firstname, userid, password) {
 
                 <div class="footer">
 
-                    <p>© 2024 Micropost.</p>
+                    <p>© 2024 Postify.</p>
 
                     <p>All rights reserved.</p>
 

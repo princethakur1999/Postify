@@ -6,7 +6,7 @@ const generateOTPEmailTemplate = (otp) => `
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Micropost - OTP Email</title>
+    <title>Postify - OTP Email</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -56,7 +56,7 @@ const generateOTPEmailTemplate = (otp) => `
     
         <p>Please use this OTP to complete the verification process.</p>
     
-        <p>Best regards,<br><br>Micropost Team</p>
+        <p>Best regards,<br><br>Postify</p>
 
     </div>
 

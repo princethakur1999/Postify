@@ -62,7 +62,7 @@ export default function Header() {
 
 
             <div className="h-[60%] w-[30%] sm:w-[10%] flex justify-center items-center bg-blue-800 text-white">
-                <Link to="/" className="text-xl sm:text-2xl text-center">Micropost</Link>
+                <Link to="/" className="text-xl sm:text-2xl text-center">Postify</Link>
             </div>
 
 

@@ -18,7 +18,7 @@ export default async function sendEmail(email, title, body) {
             }
         });
 
-        const mailOptions = { from: 'Micropost', to: email, subject: title, html: body };
+        const mailOptions = { from: 'Postify', to: email, subject: title, html: body };
 
         await transporter.sendMail(mailOptions);
 

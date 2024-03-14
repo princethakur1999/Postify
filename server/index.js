@@ -74,7 +74,7 @@ app.use('/', followersRoutes);
 app.get('/', (req, res) => {
 
     res.json({
-        message: 'Welcome to our Micropost!',
+        message: 'Welcome to our Postify!',
         status: 200
     })
 })

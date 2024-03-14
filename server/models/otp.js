@@ -32,7 +32,7 @@ async function sender(email, otp) {
 
         const body = generateOTPEmailTemplate(otp);
 
-        await sendEmail(email, "Micropost", body);
+        await sendEmail(email, "Postify", body);
 
     } catch (e) {
 

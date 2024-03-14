@@ -183,7 +183,7 @@ export async function updateCoverPhoto(req, res) {
 
         const option = {
 
-            folder: "Micropost"
+            folder: "Postify"
         }
 
         const cloudinaryResponse = await cloudinary.uploader.upload(coverPhoto.tempFilePath, option);
@@ -250,7 +250,7 @@ export async function updateProfilePic(req, res) {
 
         const option = {
 
-            folder: "Micropost"
+            folder: "Postify"
         }
 
         const cloudinaryResponse = await cloudinary.uploader.upload(profilePic.tempFilePath, option);
@@ -364,7 +364,7 @@ export async function createPost(req, res) {
 
         const option = {
 
-            folder: "Micropost"
+            folder: "Postify"
         }
 
         const cloudinaryResponse = await cloudinary.uploader.upload(post.tempFilePath, option);
