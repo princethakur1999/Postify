@@ -64,23 +64,23 @@ export default function App() {
             <Routes>
               <Route path="/" element={< Protected ><Home /></Protected>} />
 
-              <Route path="/search" element={<Protected ><Search /></Protected>} />
+              <Route path="/search/" element={<Protected ><Search /></Protected>} />
 
-              <Route path="/profile" element={<Protected ><Profile /></Protected>} />
+              <Route path="/profile/" element={<Protected ><Profile /></Protected>} />
 
-              <Route path="/about" element={<Protected ><About /></Protected>} />
+              <Route path="/about/" element={<Protected ><About /></Protected>} />
 
-              <Route path="/message" element={<Protected ><Message /></Protected>} />
+              <Route path="/message/" element={<Protected ><Message /></Protected>} />
 
-              <Route path="/notifications" element={<Protected ><Notifications /></Protected>} />
+              <Route path="/notifications/" element={<Protected ><Notifications /></Protected>} />
 
-              <Route path="/activities" element={<Protected ><Activities /></Protected>} />
+              <Route path="/activities/" element={<Protected ><Activities /></Protected>} />
 
-              <Route path="/setting" element={<Protected ><Setting /></Protected>} />
+              <Route path="/setting/" element={<Protected ><Setting /></Protected>} />
 
-              <Route path="/signup" element={<Signup />} />
+              <Route path="/signup/" element={<Signup />} />
 
-              <Route path="/login" element={<Login />} />
+              <Route path="/login/" element={<Login />} />
 
               <Route path="*" element={<Error />} />
             </Routes>
