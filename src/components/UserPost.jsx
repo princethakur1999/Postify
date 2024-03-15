@@ -8,15 +8,13 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { format } from 'date-fns';
 
-import { useNavigate } from "react-router-dom";
 
 
 const BASE_URL = import.meta.env.VITE_REACT_APP_API_URL;
 
 
-export default function FollowingsPost({ post }) {
+export default function UserPost({ post, poster, posterPic }) {
 
-    const navigate = useNavigate();
 
 
     const [isCommentBoxOpen, setIsCommentBoxOpen] = useState(false);
@@ -90,11 +88,6 @@ export default function FollowingsPost({ post }) {
         }
     };
 
-    const viewProfile = () => {
-
-        navigate(`/user/${post.userid}`);
-    }
-
     return (
 
         <div className="w-[100%] h-[540px] flex flex-col justify-between gap-2 p-2 border rounded-md bg-4">
@@ -103,13 +96,17 @@ export default function FollowingsPost({ post }) {
 
                 <div className="w-[100%] h-auto flex justify-between items-center py-2 border-b">
 
+
                     <div className="w-max flex justify-between items-center gap-4">
 
-                        <img className="h-[40px] w-[40px] rounded-full bg-white border" src={post?.profilePic} alt="profile" />
 
-                        <p className="text-white font-semibold cursor-pointer" onClick={viewProfile}>
-                            {post.userid}
+                        <img className="h-[40px] w-[40px] rounded-full bg-white border" src={posterPic} alt="pr" />
+
+
+                        <p className="text-white font-bold">
+                            {poster}
                         </p>
+
 
                         <p className="text-white">
                             {
@@ -159,10 +156,10 @@ export default function FollowingsPost({ post }) {
 
                                 <div className="w-max flex justify-between items-center gap-4">
 
-                                    <img className="h-[40px] w-[40px] rounded-full" src={post.profilePic} alt="profile" />
+                                    <img className="h-[40px] w-[40px] rounded-full" src={posterPic} alt="profile" />
 
-                                    <p className="text-white font-semibold cursor-pointer" onClick={viewProfile}>
-                                        {post.userid}
+                                    <p className="text-white font-bold cursor-pointer">
+                                        {poster}
                                     </p>
 
                                     <p className="text-white ">

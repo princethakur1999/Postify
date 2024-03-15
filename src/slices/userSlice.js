@@ -6,24 +6,17 @@ export const userSlice = createSlice({
 
     initialState: {
 
-        isFetching: false,
-        token: localStorage.getItem("token") ? localStorage.getItem("token") : null,
-        userDetails: null
+        userid: null
     },
-
     reducers: {
-        setIsFetching: (state, action) => {
-            state.isFetching = action.payload;
-        },
-        setToken: (state, action) => {
-            state.token = action.payload;
-        },
-        setUserDetails: (state, action) => {
-            state.userDetails = action.payload;
+
+        setUserid: (state, action) => {
+
+            state.userid = action.payload;
         }
     }
 });
 
-export const { setIsFetching, setToken, setUserDetails } = userSlice.actions;
+export const { setUserid } = userSlice.actions;
 
 export default userSlice.reducer;

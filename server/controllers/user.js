@@ -4,6 +4,91 @@ import Post from '../models/post.js';
 
 import { v2 as cloudinary } from 'cloudinary';
 
+
+export async function getUserDetails(req, res) {
+
+    try {
+
+        const { userid, myid } = req.params;
+
+        if (!userid) {
+
+            return res.status(400).json({
+
+                success: false,
+                message: "No user id provided"
+            });
+        }
+
+        const me = await User.findOne({ userid: myid });
+
+        const user = await User.findOne({ userid: userid })
+            .select("-password -isVerifiedUser -reportCount -sentRequests -receivedRequests -profileViewers -notifications -activities -messages")
+            .populate({
+                path: 'profile',
+                select: 'profilePic coverPhoto'
+            })
+            .populate({
+                path: 'posts',
+                populate: {
+                    path: 'comments',
+                    populate: {
+                        path: 'user'
+                    }
+                }
+            })
+            .exec();
+
+
+        console.log(user);
+
+
+        if (!user) {
+
+            return res.status(401).json({
+                success: false,
+                message: "You are not logged in!"
+            });
+        }
+
+
+        if (user.isPublicAccount === 'yes' || me.followers.includes(user._id)) {
+
+            return res.status(200).json({
+
+                success: true,
+                message: "Data fetched successfully!",
+                userDetails: user
+            });
+
+        } else {
+
+            user.posts = null;
+
+            console.log(user);
+
+            return res.status(200).json({
+
+                success: true,
+                message: "Private account!",
+                userDetails: user
+            });
+        }
+
+
+
+    } catch (e) {
+
+        console.log(e);
+
+        return res.status(500).json({
+
+            success: false,
+            message: "Internal server error"
+        });
+    }
+}
+
 export async function getAllUsers(req, res) {
 
     try {

@@ -60,7 +60,7 @@ import authRoutes from './routes/auth.js';
 import userRoutes from './routes/user.js'
 import postRoutes from './routes/post.js';
 import requestRoutes from './routes/request.js';
-import followersRoutes from './routes/followers.js';
+import followersRoutes from './routes/following.js';
 
 app.use('/', authRoutes);
 app.use('/', userRoutes);

@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import Start from './components/Start';
 import Header from './components/Header';
+import UserProfile from './pages/UserProfile';
 import Home from './pages/Home';
 import Search from './pages/Search';
 import Profile from './pages/Profile';
@@ -58,7 +59,9 @@ export default function App() {
             <Header />
 
             <Routes>
+
               <Route path="/" element={<Protected><Home /></Protected>} />
+              <Route path="/user/:userid" element={<Protected><UserProfile /></Protected>} />
               <Route path="/search" element={<Protected><Search /></Protected>} />
               <Route path="/profile" element={<Protected><Profile /></Protected>} />
               <Route path="/about" element={<Protected><About /></Protected>} />

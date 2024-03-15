@@ -13,6 +13,8 @@ import toast from "react-hot-toast";
 
 import { format } from 'date-fns';
 
+import { setUserid } from './../slices/userSlice';
+
 
 const BASE_URL = import.meta.env.VITE_REACT_APP_API_URL;
 
@@ -90,6 +92,13 @@ export default function Post({ post, userid, profilePic }) {
         }
     }
 
+    const viewProfile = () => {
+
+        dispatch(setUserid(user.userid));
+
+        navigate(`/user/${user.userid}`);
+    }
+
     return (
 
         <div className="w-[100%] h-[540px] flex flex-col justify-between gap-2 p-2 px-4 border rounded-md bg-4">
@@ -103,7 +112,7 @@ export default function Post({ post, userid, profilePic }) {
 
                         <img className="h-[40px] w-[40px] rounded-full bg-white border" src={profilePic} alt="profile" />
 
-                        <p className="text-white font-bold cursor-pointer underline">
+                        <p className="text-white font-bold cursor-pointer underline" onClick={viewProfile}>
                             {userid}
                         </p>
 
@@ -142,7 +151,7 @@ export default function Post({ post, userid, profilePic }) {
 
             <div className="w-[100%] flex justify-between py-2">
 
-                <p onClick={() => addLikeToThisPost(post._id)} className="text-white text-3xl cursor-pointer hover:text-blue-800">
+                <p onClick={() => addLikeToThisPost(post._id)} className="text-white text-3xl cursor-pointer hover:animate-pulse">
                     <BiSolidLike />
                 </p>
 
@@ -167,7 +176,7 @@ export default function Post({ post, userid, profilePic }) {
 
                                     <img className="h-[40px] w-[40px] rounded-full" src={profilePic} alt="profile" />
 
-                                    <p className="text-white font-bold cursor-pointer">
+                                    <p className="text-white font-semibold cursor-pointer" onClick={viewProfile}>
                                         {userid}
                                     </p>
 

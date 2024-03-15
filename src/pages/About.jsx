@@ -32,6 +32,7 @@ export default function About() {
         lastname: "",
         email: "",
         userid: "",
+        isPublicAccount: "",
         phoneNumber: "",
         joinedOn: "",
         gender: "",
@@ -58,6 +59,7 @@ export default function About() {
                 lastname: response.data.user?.lastname || "",
                 email: response.data.user?.email || "",
                 userid: response.data.user?.userid || "",
+                isPublicAccount: response.data.user.isPublicAccount || "",
                 phoneNumber: response.data.user.profile?.phoneNumber || "",
                 gender: response.data.user.profile?.gender || "",
                 describeYourselfInOneWord: response.data.user.profile?.describeYourselfInOneWord || "",
@@ -214,7 +216,14 @@ export default function About() {
                     </p>
 
 
-
+                    <p className="flex justify-between items-center text-white text-left w-full text-lg">
+                        <span>
+                            Public
+                        </span>
+                        <span className="font-semibold">
+                            {myInfo?.isPublicAccount}
+                        </span>
+                    </p>
                     <p className="flex justify-between items-center text-white text-left w-full text-lg">
                         <span>
                             Report
@@ -265,7 +274,7 @@ export default function About() {
                     </p>
 
 
-                    <div onClick={editBoxOpen} className="flex justify-evenly px-2 py-1 mt-4 items-center gap-2 w-[120px] font-bold text-lg cursor-pointer bg-white text-slate dark:bg-white dark:text-slate-900 rounded-md">
+                    <div onClick={editBoxOpen} className="flex justify-evenly px-2 py-1 mt-4 items-center gap-2 w-[120px] font-bold text-lg cursor-pointer bg-white text-slate-900 hover:text-blue-800 rounded-md">
                         <p>Edit</p>
                         <FaEdit />
                     </div>
@@ -331,29 +340,21 @@ export default function About() {
 
 
                     <div className="flex flex-col gap-1 justify-center items-start h-auto w-[100%] sm:w-[60%]">
-                        <label className="text-white dark:text-white text-lg flex items-center gap-2" htmlFor="userid">
-                            <span>
-                                Userid
-                            </span>
-                            {
-                                availableUserid &&
-                                <span className="text-white dark:text-white font-bold">
-                                    <RiVerifiedBadgeLine />
-                                </span>
-                            }
+                        <label className="text-white dark:text-white text-lg" htmlFor="isPublicAccount">
+                            Public account?
                         </label>
-                        <input
+                        <select
                             className="w-full rounded-md p-1 text-lg focus-within:outline-none bg-white text-slate-600 border"
-                            type="text"
-                            name="userid"
-                            maxLength={16}
-                            minLength={8}
-                            id="userid"
-                            value={newDetails.userid}
+                            name="isPublicAccount"
+                            id="isPublicAccount"
+                            value={newDetails.isPublicAccount}
                             onChange={handleInputChange}
-                        />
+                        >
+                            <option value={newDetails.isPublicAccount}>{newDetails.isPublicAccount}</option>
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                        </select>
                     </div>
-
 
 
 
@@ -408,7 +409,7 @@ export default function About() {
 
 
                     <div className="flex justify-center items-center h-auto w-[100%] absolute bottom-4">
-                        <button className="bg-white dark:bg-white dark:text-slate-900 sm:hover:bg-blue-800 sm:hover:text-white w-[40%] sm:w-[20%] focus-within:outline-none text-lg font-bold text-center rounded-md py-1">
+                        <button className="bg-white text-slate-900 hover:text-blue-800 w-[40%] sm:w-[20%] focus-within:outline-none text-lg font-bold text-center rounded-md py-1">
                             Save
                         </button>
                     </div>

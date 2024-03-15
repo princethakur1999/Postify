@@ -5,7 +5,7 @@ const router = express.Router();
 router.post('/check-userid/:userid', checkUserid)
 
 import {
-
+    getUserDetails,
     getAllUsers,
     searchById,
     getProfileDetails,
@@ -17,6 +17,8 @@ import {
     getActivities
 
 } from '../controllers/user.js';
+
+router.get('/user-profile-details/:userid/:myid', getUserDetails);
 
 router.get('/users/:userid', getAllUsers);
 

@@ -2,7 +2,7 @@ import express from 'express';
 
 const router = express.Router();
 
-import { getFollowingsPosts } from '../controllers/followers.js';
+import { getFollowingsPosts } from '../controllers/following.js';
 
 router.get('/followers-posts/:userid', getFollowingsPosts);
 

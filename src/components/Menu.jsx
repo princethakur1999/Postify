@@ -9,8 +9,6 @@ import { LuActivity } from "react-icons/lu";
 import { FaPowerOff } from "react-icons/fa";
 import { IoSettingsSharp } from "react-icons/io5";
 
-import { setToken } from "../slices/userSlice";
-
 import { useNavigate } from "react-router-dom";
 
 import toast from "react-hot-toast";
@@ -26,8 +24,6 @@ export default function Menu() {
         e.preventDefault();
 
         localStorage.removeItem("token");
-
-        setToken(null);
 
         navigate('/login');
 

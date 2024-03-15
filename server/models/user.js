@@ -37,12 +37,12 @@ const userSchema = new mongoose.Schema(
             unique: true
         },
         isVerifiedUser: {
-            type: Boolean,
-            default: false
+            type: String,
+            default: "yes"
         },
         isPublicAccount: {
-            type: Boolean,
-            default: false
+            type: String,
+            default: "yes"
         },
         reportCount: {
             type: Number,

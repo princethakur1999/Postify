@@ -222,7 +222,7 @@ export async function editProfile(req, res) {
         const { id } = req.params;
 
 
-        const { firstname, lastname, email, userid, phoneNumber, gender, describeYourselfInOneWord } = req.body;
+        const { firstname, lastname, email, userid, isPublicAccount, phoneNumber, gender, describeYourselfInOneWord } = req.body;
 
         const user = await User.findOne({ userid: id }).select('-password').populate("profile");
 
@@ -233,6 +233,7 @@ export async function editProfile(req, res) {
         user.lastname = lastname || user.lastname;
         user.email = email || user.email;
         user.userid = userid || user.userid;
+        user.isPublicAccount = isPublicAccount || user.isPublicAccount;
         profile.phoneNumber = phoneNumber || profile.phoneNumber;
         profile.gender = gender || profile.gender;
         profile.describeYourselfInOneWord = describeYourselfInOneWord || profile.describeYourselfInOneWord;

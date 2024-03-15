@@ -2,14 +2,17 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import { useState } from "react";
 
+import { useNavigate } from "react-router-dom";
+
 const BASE_URL = import.meta.env.VITE_REACT_APP_API_URL;
 
 
 export default function SentRequestUser({ user }) {
 
+    const navigate = useNavigate();
+
 
     const [isCancelled, setIsCancelled] = useState(false);
-
 
 
     async function cancelSentRequest(e) {
@@ -41,6 +44,11 @@ export default function SentRequestUser({ user }) {
 
     }
 
+    const viewProfile = () => {
+
+        navigate(`/user/${user.userid}`);
+    }
+
 
     return (
 
@@ -48,7 +56,7 @@ export default function SentRequestUser({ user }) {
 
             <img className="h-[30px] w-[30px] rounded-full" src={user.profile.profilePic} alt="user-photo" />
 
-            <p className="text-slate-900">@{user.userid}</p>
+            <p className="text-slate-900 cursor-pointer font-semibold" onClick={viewProfile}>@{user.userid}</p>
 
             <p onClick={cancelSentRequest} className="w-[40%] text-center font-bold text-sm cursor-pointer bg-4 text-white rounded-full py-1">{isCancelled ? "Cancelled" : "Cancel"}</p>
 
