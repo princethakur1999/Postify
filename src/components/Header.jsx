@@ -57,7 +57,7 @@ export default function Header() {
     return (
 
 
-        <nav className="h-[64px] w-[100%] bg-4 flex justify-between items-center px-2 z-40 fixed top-0 right-0 left-0">
+        <nav className="h-[64px] w-[100%] bg-4 flex justify-between items-center px-2 z-40 fixed top-0 right-0 left-0 shadow-md">
 
 
 

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 
 import toast from "react-hot-toast";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 import AddPost from "../components/AddPost";
 
@@ -11,6 +12,8 @@ import FollowingPost from '../components/FollowingsPost';
 const BASE_URL = import.meta.env.VITE_REACT_APP_API_URL;
 
 export default function Home() {
+
+    const navigate = useNavigate();
 
     const [posts, setPosts] = useState(null);
 
@@ -32,9 +35,10 @@ export default function Home() {
 
         } catch (e) {
 
+
             console.log(e);
 
-            toast.error(e.response.data.message);
+            navigate('/login');
 
         }
     }

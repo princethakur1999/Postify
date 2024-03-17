@@ -90,7 +90,7 @@ export default function UserPost({ post, poster, posterPic }) {
 
     return (
 
-        <div className="w-[100%] h-[540px] flex flex-col justify-between gap-2 p-2 border rounded-md bg-4">
+        <div className="sm:w-[80%] w-[98%] h-[540px] flex flex-col justify-between gap-2 p-2 px-4 border rounded-md bg-4">
 
             <div className="w-[100%] h-[80%] flex flex-col justify-center items-center gap-4">
 
@@ -121,38 +121,42 @@ export default function UserPost({ post, poster, posterPic }) {
 
 
                 <div className="h-[80%] w-[100%] flex justify-center items-center">
-                    <img className="h-[100%] w-auto object-cover rounded-lg" src={post.image} alt="post" />
+                    <img className="h-[100%] w-[100%] object-cover rounded-lg" src={post.image} alt="post" />
                 </div>
             </div>
 
 
-            <div className="w-[100%] flex justify-between py-2 border-t">
-                <p className="text-white text-xl cursor-pointer">{likesCount}</p>
-                <p className="text-white  text-xl cursor-pointer">{commentsCount}</p>
-            </div>
-
-            <div className="w-[100%] flex justify-between py-2">
-
-                <p onClick={() => addLikeToThisPost(post._id)} className="text-3xl cursor-pointer text-white hover:scale-125 transition ease-in-out">
-                    <BiSolidLike />
-                </p>
-
-                <p className="text-white  text-2xl cursor-pointer" onClick={() => setIsCommentBoxOpen(!isCommentBoxOpen)}>
-                    <FaCommentAlt />
-                </p>
-
+            <div className="w-full flex justify-between items-center py-4">
+                <div className="flex items-center space-x-4">
+                    <p className="text-white text-xl font-semibold cursor-pointer">
+                        <span className="mr-1">{likesCount}</span>
+                        <span className="text-gray-300">Likes</span>
+                    </p>
+                    <p className="text-white text-xl font-semibold cursor-pointer">
+                        <span className="mr-1">{commentsCount}</span>
+                        <span className="text-gray-300">Comments</span>
+                    </p>
+                </div>
+                <div className="flex items-center space-x-4">
+                    <p onClick={() => addLikeToThisPost(post._id)} className="text-white text-3xl cursor-pointer hover:animate-pulse">
+                        <BiSolidLike />
+                    </p>
+                    <p className="text-white text-2xl cursor-pointer" onClick={() => setIsCommentBoxOpen(!isCommentBoxOpen)}>
+                        <FaCommentAlt />
+                    </p>
+                </div>
             </div>
 
 
             {
                 isCommentBoxOpen &&
-                <div className="h-[100vh] w-[100vw] flex flex-col justify-start items-center pt-20 bg-white dark:bg-slate-900 fixed top-0 bottom-0 left-0 right-0 z-42">
+                <div className="h-[100vh] w-[100vw] flex flex-col justify-start items-center pt-20 bg-white dark:bg-slate-900 fixed inset-0 z-42">
 
-                    <div className="w-[98%] sm:w-[50%] h-[75vh] flex flex-col justify-between px-2 rounded-md overflow-y-auto bg-4">
+                    <div className="w-[98%] sm:w-[40%] h-[75vh] flex flex-col justify-between px-2 rounded-md overflow-y-auto bg-4">
 
                         <div className="w-[100%] h-[80%]  flex flex-col justify-between items-center">
 
-                            <div className="w-[100%] h-auto flex justify-between items-center py-2 border-b">
+                            <div className="w-[100%] h-auto flex justify-between items-center py-2">
 
                                 <div className="w-max flex justify-between items-center gap-4">
 
@@ -178,20 +182,28 @@ export default function UserPost({ post, poster, posterPic }) {
 
 
                             <div className="h-[80%] w-[100%] flex justify-center items-center">
-                                <img className="h-[100%] w-auto object-cover rounded-md" src={post.image} alt="post" />
+                                <img className="h-[260px] w-[100%] object-cover rounded-lg" src={post.image} alt="post" />
                             </div>
                         </div>
 
 
-                        <div className="w-[100%] flex justify-between border-b py-2 my-2">
+                        <div className="w-full flex justify-between items-center py-4">
+                            <div className="flex items-center space-x-4">
+                                <p className="text-white text-xl font-semibold cursor-pointer">
+                                    <span className="mr-1">{likesCount}</span>
+                                    <span className="text-gray-300">Likes</span>
+                                </p>
+                                <p className="text-white text-xl font-semibold cursor-pointer">
+                                    <span className="mr-1">{commentsCount}</span>
+                                    <span className="text-gray-300">Comments</span>
+                                </p>
+                            </div>
 
-                            <p className="text-white text-xl cursor-pointer">
-                                {post.likes?.length}
-                            </p>
-
-                            <p className="text-white text-xl cursor-pointer">
-                                {post.comments?.length}
-                            </p>
+                            <div className="flex items-center space-x-4">
+                                <p onClick={() => addLikeToThisPost(post._id)} className="text-white text-3xl cursor-pointer hover:animate-pulse">
+                                    <BiSolidLike />
+                                </p>
+                            </div>
                         </div>
 
                         <div className="flex flex-col gap-2">
@@ -202,10 +214,10 @@ export default function UserPost({ post, poster, posterPic }) {
 
                     </div>
 
-                    <form className="bg-3 w-[98%] sm:w-[50%] rounded-md fixed bottom-4 flex justify-between px-2 border">
+                    <form className="bg-slate-200 w-[98%] sm:w-[40%] rounded-md fixed bottom-4 flex justify-between px-2 border">
 
                         <input
-                            className="bg-3 w-[100%] p-2 focus-within:outline-none text-slate-600"
+                            className="bg-slate-200 w-[100%] p-2 focus-within:outline-none text-slate-600"
                             type="text"
                             placeholder="Type......"
                             value={comment}

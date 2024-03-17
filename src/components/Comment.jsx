@@ -1,30 +1,26 @@
-
 export default function Comment({ comment }) {
 
     return (
 
-        <div className="w-[100%] p-2 flex flex-col sm:flex-row justify-start items-start gap-4">
+        <div className="flex items-start space-x-4 py-2">
 
-            <div className=" min-w-[150px] max-w-max flex justify-start items-center gap-2">
+            <img
+                className="w-10 h-10 rounded-full"
+                src={comment?.user?.profile?.profilePic ? comment?.user?.profile?.profilePic : 'https://img.freepik.com/free-icon/user_318-749758.jpg'}
+                alt="profile"
+            />
 
-                <img className="h-[20px] w-[20px] rounded-full bg-white border" src={comment?.user?.profile?.profilePic} alt="profile" />
-
-                <p className="text-white font-bold cursor-pointer">
-                    {comment?.user?.userid}
+            <div className="flex flex-col">
+                <div className="bg-gray-200 rounded-lg p-2">
+                    <p className="text-sm text-gray-800 font-semibold">
+                        {comment?.user?.userid}
+                    </p>
+                    <p className="text-sm text-gray-900">{comment?.comment}</p>
+                </div>
+                <p className="text-xs text-gray-200 mt-1">
+                    {new Date(comment?.createdAt).toLocaleString()}
                 </p>
             </div>
-
-            <p className="w-full sm:min-w-[40%] sm:max-w-[80%] min-h-min max-h-max text-left rounded-md text-slate-600 bg-slate-200 p-4">
-                <span>
-                    {comment?.comment}
-                </span>
-            </p>
-
-            <span className="text-white w-full text-right">
-                {
-                    new Date(comment?.createdAt).toLocaleString()
-                }
-            </span>
         </div>
-    )
+    );
 }

@@ -377,7 +377,7 @@ export default function Profile() {
             <AddPost />
 
 
-            <section className="w-[100%] grid grid-cols-1 justify-items-center gap-y-16 gap-x-4 py-4">
+            <section className="w-[100%] grid grid-cols-1 justify-items-center gap-y-16 gap-x-4 py-4 border mb-8 rounded-md">
                 {
                     profileDetails.posts?.map((post) => <Post post={post} userid={profileDetails.userid} profilePic={profileDetails.profile.profilePic} key={post._id} />)
                 }

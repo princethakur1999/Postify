@@ -33,7 +33,10 @@ export async function getUserDetails(req, res) {
                 populate: {
                     path: 'comments',
                     populate: {
-                        path: 'user'
+                        path: 'user',
+                        populate: {
+                            path: 'profile'
+                        }
                     }
                 }
             })
