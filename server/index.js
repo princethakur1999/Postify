@@ -61,12 +61,14 @@ import userRoutes from './routes/user.js'
 import postRoutes from './routes/post.js';
 import requestRoutes from './routes/request.js';
 import followersRoutes from './routes/following.js';
+import settingRoutes from './routes/setting.js';
 
 app.use('/', authRoutes);
 app.use('/', userRoutes);
 app.use('/', postRoutes);
 app.use('/', requestRoutes);
 app.use('/', followersRoutes);
+app.use('/', settingRoutes);
 
 
 

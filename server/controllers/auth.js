@@ -92,7 +92,7 @@ export async function signupHandler(req, res) {
             });
         }
 
-        const userid = firstname + (Math.floor(1000 + Math.random() * 9000));
+        const userid = firstname.trim() + (Math.floor(1000 + Math.random() * 9000));
 
         const payload = { firstname, lastname, email };
 

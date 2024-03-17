@@ -198,7 +198,7 @@ export default function Profile() {
 
             {
                 isCoverPhotoChangerOpen &&
-                <div className="h-[100vh] w-[100vw] flex justify-center items-center bg-white dark:bg-slate-900 z-50 fixed top-0 bottom-0 left-0 right-0">
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-800 bg-opacity-50">
 
 
                     <form className="min-h-[300px] max-h-max w-[320px] sm:w-[360px] relative pt-8 bg-3 rounded-md flex flex-col justify-around items-center gap-8 px-4 py-4 border">
@@ -255,7 +255,7 @@ export default function Profile() {
 
             {
                 isProfilePicChangerOpen &&
-                <div className="h-[100vh] w-[100vw] flex justify-center items-center bg-white dark:bg-slate-900 z-50 fixed top-0 bottom-0 left-0 right-0">
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-800 bg-opacity-50">
 
                     <form className="min-h-[300px] max-h-max w-[320px] sm:w-[360px] relative pt-8 bg-3 rounded-md flex flex-col justify-around items-center gap-8 px-4 py-4 border">
 
