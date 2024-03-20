@@ -115,6 +115,20 @@ export async function getAllUsers(req, res) {
         const filteredUsers = users.filter((user) => user.userid !== userid);
 
 
+        function shuffleArray(array) {
+
+            for (let i = array.length - 1; i > 0; i--) {
+
+                const j = Math.floor(Math.random() * (i + 1));
+
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+
+        shuffleArray(filteredUsers);
+
         console.log(filteredUsers);
 
         res.status(200).json({

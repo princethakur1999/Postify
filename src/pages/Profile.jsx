@@ -349,7 +349,7 @@ export default function Profile() {
                 </p>
                 <p className="text-2xl w-full text-center">
                     {
-                        profileDetails?.firstname + " " + profileDetails?.lastname
+                        (profileDetails?.firstname && profileDetails?.lastname) ? profileDetails.firstname + " " + profileDetails.lastname : ""
                     }
                 </p>
             </section>

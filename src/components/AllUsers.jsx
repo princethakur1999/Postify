@@ -41,7 +41,7 @@ function AllUsers() {
 
     return (
 
-        <div className="w-[98%] sm:w-[100%] h-auto rounded-md py-4 my-4 flex flex-wrap justify-between gap-6">
+        <div className="w-[98%] sm:w-[100%] h-auto rounded-md py-4 my-4 flex flex-wrap sm:justify-between justify-center gap-6">
 
             {
                 users?.map((user) => (

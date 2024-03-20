@@ -15,7 +15,7 @@ export default function Home() {
 
     const navigate = useNavigate();
 
-    const [posts, setPosts] = useState(null);
+    const [posts, setPosts] = useState([]);
 
     const getFollowingsPosts = async () => {
 
@@ -59,12 +59,14 @@ export default function Home() {
             <AllUsers />
 
 
-            <section className="w-[100%] grid grid-cols-1 justify-items-center gap-y-16 gap-x-4 rounded-md py-8 border my-8">
-                {
-                    posts?.map((post) => <FollowingPost post={post} key={post._id} />)
-                }
-            </section>
-
+            {
+                posts?.length > 0 &&
+                <section className="w-[100%] grid grid-cols-1 justify-items-center gap-y-16 gap-x-4 rounded-md py-8 border my-8">
+                    {
+                        posts?.map((post) => <FollowingPost post={post} key={post._id} />)
+                    }
+                </section>
+            }
 
         </div>
     )
