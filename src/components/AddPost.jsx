@@ -60,7 +60,7 @@ export default function AddPost() {
     return (
 
 
-        <div className="w-full h-auto p-1 sm:p-4 border rounded-md bg-3 dark:bg-white">
+        <div className="w-full sm:w-[100%] h-auto p-1 sm:p-4 border rounded-md bg-3 dark:bg-white">
 
 
             <form className="rounded-lg flex justify-between items-center space-x-4">
@@ -84,7 +84,7 @@ export default function AddPost() {
                 {
                     !processing && post &&
                     <div className="h-[300px] w-[60%] flex justify-center items-center py-8">
-                        <img className="h-[100%] w-full object-cover aspect-square rounded-lg" src={URL.createObjectURL(post)} alt="post" />
+                        <img className="h-[100%] w-full object-contain aspect-square rounded-lg" src={URL.createObjectURL(post)} alt="post" />
                     </div>
                 }
 

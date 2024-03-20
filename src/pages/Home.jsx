@@ -1,12 +1,12 @@
 
 import { useEffect, useState } from "react"
 
-import toast from "react-hot-toast";
 import axios from "axios";
+
 import { useNavigate } from "react-router-dom";
 
 import AddPost from "../components/AddPost";
-
+import AllUsers from "../components/AllUsers";
 import FollowingPost from '../components/FollowingsPost';
 
 const BASE_URL = import.meta.env.VITE_REACT_APP_API_URL;
@@ -52,11 +52,14 @@ export default function Home() {
     return (
 
         <div className="w-[98%] sm:w-[60%] flex flex-col justify-start items-center gap-2 py-24">
+
             <AddPost />
 
 
+            <AllUsers />
 
-            <section className="w-[100%] grid grid-cols-1 justify-items-center gap-y-16 gap-x-4 py-4">
+
+            <section className="w-[100%] grid grid-cols-1 justify-items-center gap-y-16 gap-x-4 rounded-md py-8 border my-8">
                 {
                     posts?.map((post) => <FollowingPost post={post} key={post._id} />)
                 }
