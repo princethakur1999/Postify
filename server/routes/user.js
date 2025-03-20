@@ -2,7 +2,6 @@ import express from 'express';
 
 const router = express.Router();
 
-router.post('/check-userid/:userid', checkUserid)
 
 import {
     getUserDetails,
@@ -17,6 +16,9 @@ import {
     getActivities
 
 } from '../controllers/user.js';
+
+
+router.post('/check-userid/:userid', checkUserid)
 
 router.get('/user-profile-details/:userid/:myid', getUserDetails);
 

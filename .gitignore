@@ -5,7 +5,7 @@
 /node_modules/
 
 /.env
-
+.env
 /server/node_modules/
 
 /server/.env

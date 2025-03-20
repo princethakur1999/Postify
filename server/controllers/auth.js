@@ -180,6 +180,7 @@ export async function loginHandler(req, res) {
         // Validate the user id and password using bcrypt compareSync method
         const validPassword = await bcrypt.compare(password, existingUser.password);
 
+
         if (!validPassword) {
 
             return res.status(401).json({
@@ -188,6 +189,7 @@ export async function loginHandler(req, res) {
                 message: "Invalid password!"
             });
         }
+
         const payload = { userid: existingUser.userid, toke: existingUser.token, email: existingUser.email };
 
         const token = jwt.sign(payload, process.env.JWT_SECRET);
